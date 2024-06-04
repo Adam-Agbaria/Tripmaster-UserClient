@@ -364,7 +364,7 @@
                 </LinearLayout>
             </LinearLayout>
             <com.google.android.material.button.MaterialButton
-               android:id="@+id/Sf_search_BTN"
+                android:id="@+id/Sf_search_BTN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Search Flight"

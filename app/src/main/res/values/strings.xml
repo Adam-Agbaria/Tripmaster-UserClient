@@ -4,6 +4,182 @@
         <item>Tel Aviv, TLV (Ben Gurion Airport)</item>
         <item>New York, JFK (John F. Kennedy International)</item>
         <item>London, LHR (Heathrow Airport)</item>
-        <!-- Add more locations as needed -->
+        <item>Paris, CDG (Charles de Gaulle Airport)</item>
+        <item>Tokyo, HND (Haneda Airport)</item>
+        <item>Los Angeles, LAX (Los Angeles International Airport)</item>
+        <item>Chicago, ORD (OHare International Airport)</item>
+        <item>Dubai, DXB (Dubai International Airport)</item>
+        <item>Singapore, SIN (Changi Airport)</item>
+        <item>Hong Kong, HKG (Hong Kong International Airport)</item>
+        <item>Toronto, YYZ (Toronto Pearson International Airport)</item>
+        <item>Sydney, SYD (Sydney Kingsford Smith Airport)</item>
+        <item>Melbourne, MEL (Melbourne Airport)</item>
+        <item>San Francisco, SFO (San Francisco International Airport)</item>
+        <item>Beijing, PEK (Beijing Capital International Airport)</item>
+        <item>Shanghai, PVG (Shanghai Pudong International Airport)</item>
+        <item>Munich, MUC (Munich Airport)</item>
+        <item>Frankfurt, FRA (Frankfurt Airport)</item>
+        <item>Amsterdam, AMS (Amsterdam Schiphol Airport)</item>
+        <item>Seoul, ICN (Incheon International Airport)</item>
+        <item>Bangkok, BKK (Suvarnabhumi Airport)</item>
+        <item>Delhi, DEL (Indira Gandhi International Airport)</item>
+        <item>Mumbai, BOM (Chhatrapati Shivaji Maharaj International Airport)</item>
+        <item>Barcelona, BCN (Barcelona El Prat Airport)</item>
+        <item>Rome, FCO (Rome Fiumicino Airport)</item>
+        <item>Madrid, MAD (Madrid Barajas Airport)</item>
+        <item>Zurich, ZRH (Zurich Airport)</item>
+        <item>Vienna, VIE (Vienna International Airport)</item>
+        <item>Istanbul, IST (Istanbul Airport)</item>
+        <item>Doha, DOH (Hamad International Airport)</item>
+        <item>Lisbon, LIS (Lisbon Portela Airport)</item>
+        <item>Oslo, OSL (Oslo Gardermoen Airport)</item>
+        <item>Stockholm, ARN (Stockholm Arlanda Airport)</item>
+        <item>Copenhagen, CPH (Copenhagen Airport)</item>
+        <item>Dublin, DUB (Dublin Airport)</item>
+        <item>Brussels, BRU (Brussels Airport)</item>
+        <item>Athens, ATH (Athens International Airport)</item>
+        <item>Budapest, BUD (Budapest Ferenc Liszt International Airport)</item>
+        <item>Warsaw, WAW (Warsaw Chopin Airport)</item>
+        <item>Prague, PRG (Prague Václav Havel Airport)</item>
+        <item>Helsinki, HEL (Helsinki-Vantaa Airport)</item>
+        <item>Vienna, VIE (Vienna International Airport)</item>
+        <item>Dubai, DXB (Dubai International Airport)</item>
+        <item>Riyadh, RUH (King Khalid International Airport)</item>
+        <item>Jeddah, JED (King Abdulaziz International Airport)</item>
+        <item>Cairo, CAI (Cairo International Airport)</item>
+        <item>Johannesburg, JNB (O.R. Tambo International Airport)</item>
+        <item>Buenos Aires, EZE (Ministro Pistarini International Airport)</item>
+        <item>Rio de Janeiro, GIG (Galeão International Airport)</item>
+        <item>Santiago, SCL (Arturo Merino Benítez International Airport)</item>
+        <item>Lima, LIM (Jorge Chávez International Airport)</item>
+        <item>Bogotá, BOG (El Dorado International Airport)</item>
+        <item>Mexico City, MEX (Mexico City International Airport)</item>
+        <item>São Paulo, GRU (São Paulo-Guarulhos International Airport)</item>
+        <item>Caracas, CCS (Simón Bolívar International Airport)</item>
+        <item>Panama City, PTY (Tocumen International Airport)</item>
+        <item>Havana, HAV (José Martí International Airport)</item>
+        <item>Kingston, KIN (Norman Manley International Airport)</item>
+        <item>Santo Domingo, SDQ (Las Américas International Airport)</item>
+        <item>Nassau, NAS (Lynden Pindling International Airport)</item>
+        <item>Montego Bay, MBJ (Sangster International Airport)</item>
+        <item>San Juan, SJU (Luis Muñoz Marín International Airport)</item>
+        <item>Punta Cana, PUJ (Punta Cana International Airport)</item>
+        <item>Guatemala City, GUA (La Aurora International Airport)</item>
+        <item>San José, SJO (Juan Santamaría International Airport)</item>
+        <item>Managua, MGA (Augusto C. Sandino International Airport)</item>
+        <item>San Salvador, SAL (El Salvador International Airport)</item>
+        <item>Tegucigalpa, TGU (Toncontín International Airport)</item>
+        <item>Belize City, BZE (Philip S. W. Goldson International Airport)</item>
+        <item>Ottawa, YOW (Ottawa Macdonald-Cartier International Airport)</item>
+        <item>Montreal, YUL (Montréal-Pierre Elliott Trudeau International Airport)</item>
+        <item>Vancouver, YVR (Vancouver International Airport)</item>
+        <item>Calgary, YYC (Calgary International Airport)</item>
+        <item>Edmonton, YEG (Edmonton International Airport)</item>
+        <item>Halifax, YHZ (Halifax Stanfield International Airport)</item>
+        <item>Winnipeg, YWG (Winnipeg James Armstrong Richardson International Airport)</item>
+        <item>Quebec City, YQB (Québec City Jean Lesage International Airport)</item>
+        <item>Victoria, YYJ (Victoria International Airport)</item>
+        <item>St. Johns, YYT (St. Johns International Airport)</item>
+        <item>Regina, YQR (Regina International Airport)</item>
+        <item>Saskatoon, YXE (Saskatoon John G. Diefenbaker International Airport)</item>
+        <item>Las Vegas, LAS (McCarran International Airport)</item>
+        <item>Atlanta, ATL (Hartsfield-Jackson Atlanta International Airport)</item>
+        <item>Dallas, DFW (Dallas/Fort Worth International Airport)</item>
+        <item>Miami, MIA (Miami International Airport)</item>
+        <item>Boston, BOS (Logan International Airport)</item>
+        <item>Houston, IAH (George Bush Intercontinental Airport)</item>
+        <item>Orlando, MCO (Orlando International Airport)</item>
+        <item>Seattle, SEA (Seattle-Tacoma International Airport)</item>
+        <item>Denver, DEN (Denver International Airport)</item>
+        <item>Philadelphia, PHL (Philadelphia International Airport)</item>
+        <item>Washington, DCA (Ronald Reagan Washington National Airport)</item>
+        <item>San Diego, SAN (San Diego International Airport)</item>
+        <item>Tampa, TPA (Tampa International Airport)</item>
+        <item>Charlotte, CLT (Charlotte Douglas International Airport)</item>
+        <item>Phoenix, PHX (Phoenix Sky Harbor International Airport)</item>
+        <item>Minneapolis, MSP (Minneapolis-Saint Paul International Airport)</item>
+        <item>Detroit, DTW (Detroit Metropolitan Airport)</item>
+        <item>Salt Lake City, SLC (Salt Lake City International Airport)</item>
+        <item>Baltimore, BWI (Baltimore/Washington International Thurgood Marshall Airport)</item>
+        <item>St. Louis, STL (St. Louis Lambert International Airport)</item>
+        <item>Portland, PDX (Portland International Airport)</item>
+        <item>San Antonio, SAT (San Antonio International Airport)</item>
+        <item>Dallas, DAL (Dallas Love Field)</item>
+        <item>Kansas City, MCI (Kansas City International Airport)</item>
+        <item>Indianapolis, IND (Indianapolis International Airport)</item>
+        <item>Fort Lauderdale, FLL (Fort Lauderdale-Hollywood International Airport)</item>
+        <item>Pittsburgh, PIT (Pittsburgh International Airport)</item>
+        <item>New Orleans, MSY (Louis Armstrong New Orleans International Airport)</item>
+        <item>Cleveland, CLE (Cleveland Hopkins International Airport)</item>
+        <item>Cincinnati, CVG (Cincinnati/Northern Kentucky International Airport)</item>
+        <item>Honolulu, HNL (Daniel K. Inouye International Airport)</item>
+        <item>Milwaukee, MKE (Milwaukee Mitchell International Airport)</item>
+        <item>Columbus, CMH (John Glenn Columbus International Airport)</item>
+        <item>Raleigh, RDU (Raleigh-Durham International Airport)</item>
+        <item>Hartford, BDL (Bradley International Airport)</item>
+        <item>Nashville, BNA (Nashville International Airport)</item>
+        <item>Austin, AUS (Austin-Bergstrom International Airport)</item>
+        <item>Louisville, SDF (Louisville International Airport)</item>
+        <item>Albuquerque, ABQ (Albuquerque International Sunport)</item>
+        <item>El Paso, ELP (El Paso International Airport)</item>
+        <item>Tucson, TUS (Tucson International Airport)</item>
+        <item>Richmond, RIC (Richmond International Airport)</item>
+        <item>Buffalo, BUF (Buffalo Niagara International Airport)</item>
+        <item>Omaha, OMA (Eppley Airfield)</item>
+        <item>Providence, PVD (T. F. Green Airport)</item>
+        <item>Reno, RNO (Reno-Tahoe International Airport)</item>
+        <item>Boise, BOI (Boise Airport)</item>
+        <item>Birmingham, BHM (Birmingham-Shuttlesworth International Airport)</item>
+        <item>Jacksonville, JAX (Jacksonville International Airport)</item>
+        <item>Des Moines, DSM (Des Moines International Airport)</item>
+        <item>Oklahoma City, OKC (Will Rogers World Airport)</item>
+        <item>Charleston, CHS (Charleston International Airport)</item>
+        <item>Greensboro, GSO (Piedmont Triad International Airport)</item>
+        <item>Little Rock, LIT (Clinton National Airport)</item>
+        <item>Spokane, GEG (Spokane International Airport)</item>
+        <item>Knoxville, TYS (McGhee Tyson Airport)</item>
+        <item>Springfield, SGF (Springfield-Branson National Airport)</item>
+        <item>Grand Rapids, GRR (Gerald R. Ford International Airport)</item>
+        <item>Anchorage, ANC (Ted Stevens Anchorage International Airport)</item>
+        <item>Mobile, MOB (Mobile Regional Airport)</item>
+        <item>Wichita, ICT (Wichita Dwight D. Eisenhower National Airport)</item>
+        <item>Madison, MSN (Dane County Regional Airport)</item>
+        <item>Dayton, DAY (Dayton International Airport)</item>
+        <item>Burlington, BTV (Burlington International Airport)</item>
+        <item>Norfolk, ORF (Norfolk International Airport)</item>
+        <item>Fresno, FAT (Fresno Yosemite International Airport)</item>
+        <item>Pensacola, PNS (Pensacola International Airport)</item>
+        <item>Lexington, LEX (Blue Grass Airport)</item>
+        <item>Lubbock, LBB (Lubbock Preston Smith International Airport)</item>
+        <item>Amarillo, AMA (Rick Husband Amarillo International Airport)</item>
+        <item>Shreveport, SHV (Shreveport Regional Airport)</item>
+        <item>Corpus Christi, CRP (Corpus Christi International Airport)</item>
+        <item>Columbia, CAE (Columbia Metropolitan Airport)</item>
+        <item>Augusta, AGS (Augusta Regional Airport)</item>
+        <item>Chattanooga, CHA (Chattanooga Metropolitan Airport)</item>
+        <item>Roanoke, ROA (Roanoke-Blacksburg Regional Airport)</item>
+        <item>Santa Barbara, SBA (Santa Barbara Municipal Airport)</item>
+        <item>Harrisburg, MDT (Harrisburg International Airport)</item>
+        <item>Billings, BIL (Billings Logan International Airport)</item>
+        <item>Asheville, AVL (Asheville Regional Airport)</item>
+        <item>Fort Wayne, FWA (Fort Wayne International Airport)</item>
+        <item>Lincoln, LNK (Lincoln Airport)</item>
+        <item>Appleton, ATW (Appleton International Airport)</item>
+        <item>Yakima, YKM (Yakima Air Terminal)</item>
+        <item>Santa Ana, SNA (John Wayne Airport)</item>
+        <item>Redding, RDD (Redding Municipal Airport)</item>
+        <item>Santa Rosa, STS (Charles M. Schulz-Sonoma County Airport)</item>
+        <item>Monterey, MRY (Monterey Regional Airport)</item>
+        <item>Stockton, SCK (Stockton Metropolitan Airport)</item>
+        <item>Riverside, RIV (March Air Reserve Base)</item>
+        <item>Victorville, VCV (Southern California Logistics Airport)</item>
+        <item>Oxnard, OXR (Oxnard Airport)</item>
+        <item>Palmdale, PMD (Palmdale Regional Airport)</item>
+        <item>Hagerstown, HGR (Hagerstown Regional Airport)</item>
+        <item>Frederick, FDK (Frederick Municipal Airport)</item>
+        <item>Easton, ESN (Easton/Newnam Field Airport)</item>
+        <item>Cumberland, CBE (Greater Cumberland Regional Airport)</item>
+        <item>Ocean City, OCE (Ocean City Municipal Airport)</item>
+        <item>College Park, CGS (College Park Airport)</item>
     </string-array>
 </resources>

@@ -17,14 +17,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import dev.adamag.tripmasterfront.R;
+import dev.adamag.tripmasterfront.model.BoundaryCommand;
 import dev.adamag.tripmasterfront.model.BoundaryObject;
 import dev.adamag.tripmasterfront.model.Flight;
 import dev.adamag.tripmasterfront.model.FlightResponse;
 import dev.adamag.tripmasterfront.model.User;
+import dev.adamag.tripmasterfront.network.CommandServiceImpl;
 import dev.adamag.tripmasterfront.network.ObjectServiceImpl;
 import dev.adamag.tripmasterfront.userApp.Adapter.FlightAdapter;
 import retrofit2.Call;
@@ -184,6 +191,11 @@ public class DisplayFlightsActivity extends AppCompatActivity {
             public void onResponse(Call<BoundaryObject> call, Response<BoundaryObject> response) {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "Object created: " + response.body());
+                    // Create and send the command after successfully creating the object
+                    createFlightBookingCommand(response.body(), cost);
+//                    Intent intent = new Intent(DisplayFlightsActivity.this, DisplayBookedFlights.class);
+//                    intent.putExtra("userIdBoundary", new Gson().toJson(userIdBoundary));
+//                    startActivity(intent);
                 } else {
                     Log.e(TAG, "Create object failed: " + response.toString());
                 }
@@ -197,4 +209,49 @@ public class DisplayFlightsActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Flight booked: " + boundaryObject.toString(), Toast.LENGTH_LONG).show();
     }
+
+    private void createFlightBookingCommand(BoundaryObject boundaryObject, String cost) {
+        BoundaryCommand boundaryCommand = new BoundaryCommand();
+        boundaryCommand.setCommandId(new BoundaryCommand.CommandId("yourSuperApp", "yourMiniApp", "1"));
+        boundaryCommand.setCommand("Book a flight");
+
+        BoundaryCommand.TargetObject targetObject = new BoundaryCommand.TargetObject();
+        targetObject.setObjectId(new BoundaryCommand.TargetObject.ObjectId(boundaryObject.getObjectId().getSuperapp(), boundaryObject.getObjectId().getId()));
+        boundaryCommand.setTargetObject(targetObject);
+
+        boundaryCommand.setInvocationTimestamp(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault()).format(new Date()));
+
+        BoundaryCommand.InvokedBy invokedBy = new BoundaryCommand.InvokedBy();
+        invokedBy.setUserId(new BoundaryCommand.InvokedBy.UserId(userIdBoundary.getSuperapp(), userIdBoundary.getEmail()));
+        boundaryCommand.setInvokedBy(invokedBy);
+
+        Map<String, Object> commandAttributes = new HashMap<>();
+        commandAttributes.put("cost", cost);
+        commandAttributes.put("airline", selectedAirline);
+        commandAttributes.put("departureTime", selectedDepartureTime);
+        commandAttributes.put("arrivalTime", selectedArrivalTime);
+        commandAttributes.put("departureAirport", selectedDepartureAirport);
+        commandAttributes.put("arrivalAirport", selectedArrivalAirport);
+        commandAttributes.put("adults", selectedAdults);
+        commandAttributes.put("children", selectedChildren);
+        boundaryCommand.setCommandAttributes(commandAttributes);
+
+        CommandServiceImpl commandService = new CommandServiceImpl();
+        commandService.createCommand("userApp", boundaryCommand, new Callback<BoundaryCommand>() {
+            @Override
+            public void onResponse(Call<BoundaryCommand> call, Response<BoundaryCommand> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "Command created: " + response.body());
+                } else {
+                    Log.e(TAG, "Create command failed: " + response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BoundaryCommand> call, Throwable t) {
+                Log.e(TAG, "Create command error: " + t.getMessage());
+            }
+        });
+    }
+
 }

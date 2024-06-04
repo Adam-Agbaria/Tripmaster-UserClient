@@ -7,4 +7,11 @@
     <color name="mainColor">#03A9F4</color>
     <color name="secondColor">#6ED375</color>
 
+    <color name="pressedColor">#FF5722</color>
+    <color name="focusedColor">#FF9800</color>
+    <color name="selectedColor">#FFC107</color>
+    <color name="checkedColor">#4CAF50</color>
+    <color name="disabledColor">#BDBDBD</color>
+    <color name="defaultColor">#9E9E9E</color>
+
 </resources>

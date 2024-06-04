@@ -1,18 +1,25 @@
 package dev.adamag.tripmasterfront.Activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import dev.adamag.tripmasterfront.R;
+import dev.adamag.tripmasterfront.model.BoundaryCommand;
 import dev.adamag.tripmasterfront.model.BoundaryObject;
 import dev.adamag.tripmasterfront.model.Password;
 import dev.adamag.tripmasterfront.model.User;
+import dev.adamag.tripmasterfront.network.CommandServiceImpl;
 import dev.adamag.tripmasterfront.network.ObjectService;
 import dev.adamag.tripmasterfront.network.RetrofitClient;
 import dev.adamag.tripmasterfront.network.UserService;
@@ -22,7 +29,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -97,6 +109,8 @@ public class LoginActivity extends AppCompatActivity {
                                         User.UserIdBoundary userIdBoundary = user.getUserId();
                                         String userIdBoundaryJson = gson.toJson(userIdBoundary);
 
+                                        saveLoginCommand(user);
+
                                         // Based on role, redirect to respective activity
                                         Intent intent;
                                         if (role.equals("ADMIN")) {
@@ -133,6 +147,43 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Network error during user fetch", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void saveLoginCommand(User user) {
+        CommandServiceImpl commandService = new CommandServiceImpl();
+
+        BoundaryCommand command = new BoundaryCommand();
+        command.setCommandId(new BoundaryCommand.CommandId("tripMaster", "yourMiniApp", "1"));
+        command.setCommand("Login");
+
+        BoundaryCommand.TargetObject targetObject = new BoundaryCommand.TargetObject();
+        targetObject.setObjectId(new BoundaryCommand.TargetObject.ObjectId("NoObjectRelated", "NoObjectRelated")); // Use appropriate object ID
+        command.setTargetObject(targetObject);
+
+        command.setInvocationTimestamp(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault()).format(new Date()));
+
+        BoundaryCommand.InvokedBy invokedBy = new BoundaryCommand.InvokedBy();
+        invokedBy.setUserId(new BoundaryCommand.InvokedBy.UserId(user.getUserId().getSuperapp(), user.getUserId().getEmail()));
+        command.setInvokedBy(invokedBy);
+
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("email", user.getUserId().getEmail());
+        command.setCommandAttributes(attributes);
+
+        commandService.createCommand("userApp", command, new Callback<BoundaryCommand>() {
+            @Override
+            public void onResponse(Call<BoundaryCommand> call, Response<BoundaryCommand> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "Command created: " + response.body());
+                } else {
+                    Log.e(TAG, "Create command failed: " + response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BoundaryCommand> call, Throwable t) {
+                Log.e(TAG, "Create command error: " + t.getMessage());
             }
         });
     }
