@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TripMaster</string>
+    <string-array name="locations">
+        <item>Tel Aviv, TLV (Ben Gurion Airport)</item>
+        <item>New York, JFK (John F. Kennedy International)</item>
+        <item>London, LHR (Heathrow Airport)</item>
+        <!-- Add more locations as needed -->
+    </string-array>
+</resources>

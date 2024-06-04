@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.SignupActivity"
+    android:background="@drawable/world_map"
+    android:backgroundTint="@color/mainColor">
+
+    <LinearLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#9E03A9F4"
+        android:orientation="vertical"
+        android:paddingBottom="60dp"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/SF_profileName_LBL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome to Tripmaster"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topbar"
+        android:background="@color/white"
+        app:cardCornerRadius="40dp"
+        app:strokeWidth="0dp"
+        android:paddingBottom="40dp"
+        android:layout_marginTop="-30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Create an account"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:layout_marginTop="35dp"/>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#A3DBD9D9"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                app:strokeWidth="0dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="20dp">
+                    <EditText
+                        android:id="@+id/SGP_userName_EDT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/buttons_tint"
+                        android:hint="User name"
+                        android:layout_margin="10dp"
+                        android:textSize="@dimen/text_size_small"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2.5dp"
+                        android:background="@color/gray"/>
+                    <EditText
+                        android:id="@+id/SGP_email_EDT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/buttons_tint"
+                        android:hint="Email"
+                        android:layout_margin="10dp"
+                        android:textSize="@dimen/text_size_small"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2.5dp"
+                        android:background="@color/gray"/>
+                    <EditText
+                        android:id="@+id/SGP_password_EDT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/buttons_tint"
+                        android:hint="Password"
+                        android:layout_margin="10dp"
+                        android:textSize="@dimen/text_size_small"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2.5dp"
+                        android:background="@color/gray"/>
+                    <EditText
+                        android:id="@+id/SGP_passwordCon_EDT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/buttons_tint"
+                        android:hint="Password Confirmation"
+                        android:layout_margin="10dp"
+                        android:textSize="@dimen/text_size_small"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2.5dp"
+                        android:background="@color/gray"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="User Type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_small"
+
+                        android:layout_margin="10dp"/>
+                    <Spinner
+                        android:id="@+id/SGP_role_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/SGP_button_BTN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/mainColor"
+                android:layout_margin="20dp"
+                android:text="Sign Up"
+                android:textStyle="bold"
+                android:textSize="20dp"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+</RelativeLayout>

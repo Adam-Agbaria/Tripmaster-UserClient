@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomDropdownTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:background">@drawable/dropdown_selector</item>
+        <item name="boxStrokeColor">@color/gray</item>
+        <item name="hintTextColor">@color/gray</item>
+        <item name="boxBackgroundColor">@android:color/darker_gray</item>
+    </style>
+</resources>
