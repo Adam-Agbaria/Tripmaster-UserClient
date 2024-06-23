@@ -2,6 +2,7 @@ package dev.adamag.tripmasterfront.network;
 
 
 import dev.adamag.tripmasterfront.model.User;
+import dev.adamag.tripmasterfront.model.UserInput;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -13,13 +14,13 @@ import java.util.List;
 
 public interface UserService {
 
-    @POST("tripMaster/users")
-    Call<User> createUser(@Body User user);
+    @POST("superapp/users")
+    Call<User> createUser(@Body UserInput user);
 
-    @PUT("tripMaster/users/{superapp}/{email}")
+    @PUT("superapp/users/{superapp}/{email}")
     Call<Void> updateUser(@Path("superapp") String superapp, @Path("email") String email, @Body User user);
 
-    @GET("tripMaster/users/login/{superapp}/{email}")
+    @GET("superapp/users/login/{superapp}/{email}")
     Call<User> getUserById(@Path("superapp") String superapp, @Path("email") String email);
 
     // Uncomment and add if you need delete functionality

@@ -48,7 +48,7 @@ public class RetrofitClient {
             scrapingRetrofit = new Retrofit.Builder()
                     .baseUrl(SCRAPING_BASE_URL)
                     .client(okHttpClient)
-                    .addConverterFactory(JacksonConverterFactory.create())
+                    .addConverterFactory(CustomGsonConverterFactory.create())
                     .build();
         }
         return scrapingRetrofit;

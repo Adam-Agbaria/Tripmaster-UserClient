@@ -16,57 +16,134 @@
         android:orientation="vertical"
         android:padding="8dp">
 
+        <!-- Airline and Price -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/textViewAirline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Airline"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/textViewPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_gravity="end"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="8dp"
+            android:background="@color/gray"/>
+
+        <!-- Outbound Flight Details -->
         <TextView
-            android:id="@+id/textViewAirline"
+            android:id="@+id/textViewOutboundLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Airline"
+            android:text="Outbound Flight"
             android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/textViewDepartureAirport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Departure Airport"
             android:textSize="16sp"
             android:textColor="@color/black"
             android:layout_marginBottom="4dp"/>
-
-        <TextView
-            android:id="@+id/textViewArrivalAirport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Arrival Airport"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:layout_marginBottom="4dp"/>
-
-        <TextView
-            android:id="@+id/textViewDepartureTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Departure Time"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:layout_marginBottom="4dp"/>
-
-        <TextView
-            android:id="@+id/textViewArrivalTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Arrival Time"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:layout_marginBottom="8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
+            >
+
+            <TextView
+                android:id="@+id/textViewOutboundDepartureTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Outbound Departure Time"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/textViewOutboundArrivalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Outbound Arrival Time"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="8dp"
+            android:background="@color/gray"/>
+
+        <!-- Return Flight Details -->
+        <TextView
+            android:id="@+id/textViewReturnLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Return Flight"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/textViewReturnDepartureTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Return Departure Time"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/textViewReturnArrivalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Return Arrival Time"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="8dp"
+            android:background="@color/gray"/>
+
+        <!-- Adults and Children -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            >
 
             <TextView
                 android:id="@+id/textViewAdults"
@@ -75,7 +152,7 @@
                 android:text="Adults: "
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:layout_marginEnd="16dp"/>
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/textViewChildren"
@@ -83,23 +160,18 @@
                 android:layout_height="wrap_content"
                 android:text="Children: "
                 android:textSize="14sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
         </LinearLayout>
 
-        <LinearLayout
+        <!-- Book Flight Button -->
+        <Button
+            android:id="@+id/buttonBookFlight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
-
-            <Button
-                android:id="@+id/buttonBookFlight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Book Flight"
-                android:backgroundTint="@color/black"
-                android:textColor="@color/white"
-                android:textStyle="bold"/>
-        </LinearLayout>
+            android:text="Book Flight"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

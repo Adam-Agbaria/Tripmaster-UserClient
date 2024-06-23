@@ -9,6 +9,6 @@ import retrofit2.http.Path;
 
 public interface CommandService {
 
-    @POST("tripMaster/miniapp/{miniAppName}")
+    @POST("superapp/miniapp/{miniAppName}")
     Call<BoundaryCommand> createCommand(@Path("miniAppName") String miniAppName, @Body BoundaryCommand boundaryCommand);
 }

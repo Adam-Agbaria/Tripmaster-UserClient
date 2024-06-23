@@ -2,6 +2,7 @@ package dev.adamag.tripmasterfront.network;
 
 
 import dev.adamag.tripmasterfront.model.User;
+import dev.adamag.tripmasterfront.model.UserInput;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,7 +17,7 @@ public class UserServiceImpl {
         service = RetrofitClient.getTripMasterClient().create(UserService.class);
     }
 
-    public void createUser(User user, Callback<User> callback) {
+    public void createUser(UserInput user, Callback<User> callback) {
         Call<User> call = service.createUser(user);
         call.enqueue(new Callback<User>() {
             @Override

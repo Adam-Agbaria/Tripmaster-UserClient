@@ -124,23 +124,7 @@
                         android:layout_margin="10dp"
                         android:textSize="@dimen/text_size_small"
                         />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2.5dp"
-                        android:background="@color/gray"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="User Type"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_size_small"
 
-                        android:layout_margin="10dp"/>
-                    <Spinner
-                        android:id="@+id/SGP_role_spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

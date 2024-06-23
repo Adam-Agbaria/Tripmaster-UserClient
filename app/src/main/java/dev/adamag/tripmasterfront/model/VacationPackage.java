@@ -16,7 +16,7 @@ public class VacationPackage extends BoundaryObject {
                 "VacationPackage",
                 "Vacation Package to " + destination,
                 new LocationBoundary(0.0, 0.0),
-                ActivatedStatus.ACTIVE,
+                true,
                 new Date().toString(),
                 new CreatedByBoundary(new CreatedByBoundary.UserIdBoundary("YourSuperApp", "user@example.com")),
                 new HashMap<String, Object>()

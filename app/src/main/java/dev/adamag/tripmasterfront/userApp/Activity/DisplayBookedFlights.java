@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DisplayBookedFlights extends AppCompatActivity {
+public class DisplayBookedFlights extends MenuBarActivity {
     private RecyclerView recyclerViewFlights;
     private FlightAdapter flightAdapter;
     private List<Flight> flightList = new ArrayList<>();
@@ -44,33 +44,34 @@ public class DisplayBookedFlights extends AppCompatActivity {
         recyclerViewFlights.setLayoutManager(new LinearLayoutManager(this));
         flightAdapter = new FlightAdapter(flightList, this);
         recyclerViewFlights.setAdapter(flightAdapter);
+        setupBottomNavigationBar();
 
-        fetchBookedFlights();
+//        fetchBookedFlights();
     }
 
-    private void fetchBookedFlights() {
-        ObjectServiceImpl serviceUtil = new ObjectServiceImpl();
-        serviceUtil.getAllObjects(new Callback<List<BoundaryObject>>() {
-            @Override
-            public void onResponse(Call<List<BoundaryObject>> call, Response<List<BoundaryObject>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    for (BoundaryObject obj : response.body()) {
-                        if ("Flight".equals(obj.getType()) &&
-                                userIdBoundary.getEmail().equals(((BoundaryObject.CreatedByBoundary.UserIdBoundary) obj.getCreatedBy().getUserId()).getEmail())) {
-                            Flight flight = Flight.fromBoundaryObject(obj);
-                            flightList.add(flight);
-                        }
-                    }
-                    flightAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(DisplayBookedFlights.this, "Failed to fetch booked flights", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<BoundaryObject>> call, Throwable t) {
-                Toast.makeText(DisplayBookedFlights.this, "Network error", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void fetchBookedFlights() {
+//        ObjectServiceImpl serviceUtil = new ObjectServiceImpl();
+//        serviceUtil.getAllObjects(new Callback<List<BoundaryObject>>() {
+//            @Override
+//            public void onResponse(Call<List<BoundaryObject>> call, Response<List<BoundaryObject>> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    for (BoundaryObject obj : response.body()) {
+//                        if ("Flight".equals(obj.getType()) &&
+//                                userIdBoundary.getEmail().equals(((BoundaryObject.CreatedByBoundary.UserIdBoundary) obj.getCreatedBy().getUserId()).getEmail())) {
+//                            Flight flight = Flight.fromBoundaryObject(obj);
+//                            flightList.add(flight);
+//                        }
+//                    }
+//                    flightAdapter.notifyDataSetChanged();
+//                } else {
+//                    Toast.makeText(DisplayBookedFlights.this, "Failed to fetch booked flights", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<BoundaryObject>> call, Throwable t) {
+//                Toast.makeText(DisplayBookedFlights.this, "Network error", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 }

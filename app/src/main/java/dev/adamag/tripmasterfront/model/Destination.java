@@ -16,7 +16,7 @@ public class Destination extends BoundaryObject {
                 "Destination",
                 "Destination " + name,
                 new LocationBoundary(lat, lng),
-                ActivatedStatus.ACTIVE,
+                true,
                 new Date().toString(),
                 new CreatedByBoundary(new CreatedByBoundary.UserIdBoundary("YourSuperApp", "user@example.com")),
                 new HashMap<String, Object>()

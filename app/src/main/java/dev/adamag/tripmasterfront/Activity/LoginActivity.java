@@ -83,8 +83,12 @@ public class LoginActivity extends AppCompatActivity {
                     User user = response.body();
 
                     // Fetch all objects
-                    Call<List<BoundaryObject>> allObjectsCall = objectService.getAllObjects();
-                    allObjectsCall.enqueue(new Callback<List<BoundaryObject>>() {
+                    Call<List<BoundaryObject>> allObjectsCall = objectService.getAllObjects(
+                            "tripMaster",
+                            email,
+                            10,
+                            0
+                    );                    allObjectsCall.enqueue(new Callback<List<BoundaryObject>>() {
                         @Override
                         public void onResponse(Call<List<BoundaryObject>> call, Response<List<BoundaryObject>> response) {
                             if (response.isSuccessful() && response.body() != null) {
@@ -109,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                                         User.UserIdBoundary userIdBoundary = user.getUserId();
                                         String userIdBoundaryJson = gson.toJson(userIdBoundary);
 
-                                        saveLoginCommand(user);
+//                                        saveLoginCommand(user);
 
                                         // Based on role, redirect to respective activity
                                         Intent intent;

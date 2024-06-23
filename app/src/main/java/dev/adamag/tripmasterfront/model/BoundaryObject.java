@@ -9,7 +9,7 @@ public class BoundaryObject {
     private String type;
     private String alias;
     private LocationBoundary location;
-    private ActivatedStatus active;
+    private boolean active;
     private String creationTimestamp;
     private CreatedByBoundary createdBy;
     private Map<String, Object> objectDetails;
@@ -18,7 +18,7 @@ public class BoundaryObject {
     public BoundaryObject() {
     }
 
-    public BoundaryObject(ObjectIdBoundary objectId, String type, String alias, LocationBoundary location, ActivatedStatus active, String creationTimestamp, CreatedByBoundary createdBy, Map<String, Object> objectDetails) {
+    public BoundaryObject(ObjectIdBoundary objectId, String type, String alias, LocationBoundary location, boolean active, String creationTimestamp, CreatedByBoundary createdBy, Map<String, Object> objectDetails) {
         this.objectId = objectId;
         this.type = type;
         this.alias = alias;
@@ -61,11 +61,11 @@ public class BoundaryObject {
         this.location = location;
     }
 
-    public ActivatedStatus isActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(ActivatedStatus active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

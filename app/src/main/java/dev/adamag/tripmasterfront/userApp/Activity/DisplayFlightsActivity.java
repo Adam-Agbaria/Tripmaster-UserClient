@@ -1,22 +1,20 @@
 package dev.adamag.tripmasterfront.userApp.Activity;
 
-import static android.content.ContentValues.TAG;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +29,7 @@ import dev.adamag.tripmasterfront.model.BoundaryObject;
 import dev.adamag.tripmasterfront.model.Flight;
 import dev.adamag.tripmasterfront.model.FlightResponse;
 import dev.adamag.tripmasterfront.model.User;
+import dev.adamag.tripmasterfront.userApp.Activity.MenuBarActivity;
 import dev.adamag.tripmasterfront.network.CommandServiceImpl;
 import dev.adamag.tripmasterfront.network.ObjectServiceImpl;
 import dev.adamag.tripmasterfront.userApp.Adapter.FlightAdapter;
@@ -38,17 +37,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DisplayFlightsActivity extends AppCompatActivity {
+public class DisplayFlightsActivity extends MenuBarActivity{
     private RecyclerView recyclerViewFlights;
     private FlightAdapter flightAdapter;
     private List<Flight> flightList;
     private boolean isReturningFromBooking = false;
 
     private String selectedAirline;
-    private String selectedDepartureTime;
-    private String selectedArrivalTime;
+    private String selectedOutboundDeparture;
+    private String selectedOutboundArrival;
+    private String selectedReturnDeparture;
+    private String selectedReturnArrival;
     private String selectedDepartureAirport;
     private String selectedArrivalAirport;
+    private String selectedCost;
     private int selectedAdults;
     private int selectedChildren;
     private User.UserIdBoundary userIdBoundary;
@@ -67,53 +69,79 @@ public class DisplayFlightsActivity extends AppCompatActivity {
         String arrivalAirport = intent.getStringExtra("arrivalAirport");
         int adultCount = intent.getIntExtra("adultCount", 1);
         int babyCount = intent.getIntExtra("babyCount", 0);
-        FlightResponse flightResponse = (FlightResponse) intent.getSerializableExtra("flight_info");
+
+        String flightsJson = intent.getStringExtra("flight_info");
+
+        Log.d("IntentData", "tripType: " + tripType);
+        Log.d("IntentData", "departureDate: " + departureDate);
+        Log.d("IntentData", "returnDate: " + returnDate);
+        Log.d("IntentData", "departureAirport: " + departureAirport);
+        Log.d("IntentData", "arrivalAirport: " + arrivalAirport);
+        Log.d("IntentData", "adultCount: " + adultCount);
+        Log.d("IntentData", "babyCount: " + babyCount);
+        Log.d("IntentData", "flightsJson: " + flightsJson);
         String userIdBoundaryJson = intent.getStringExtra("userIdBoundary");
+
+
+        Log.d("IntentData", "userIdBoundaryJson: " + userIdBoundaryJson);
+
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<Map<String, Object>>>() {}.getType();
+        List<Map<String, Object>> flightResponse = gson.fromJson(flightsJson, listType);
 
         // Deserialize userIdBoundaryJson to UserIdBoundary object
         if (userIdBoundaryJson != null) {
             userIdBoundary = new Gson().fromJson(userIdBoundaryJson, User.UserIdBoundary.class);
+            Log.d("UserIdBoundary", "userIdBoundary: " + userIdBoundary);
+        } else {
+            Log.e("UserIdBoundary", "userIdBoundaryJson is null");
         }
+
+
 
         if (tripType == null) tripType = "N/A";
         if (departureDate == null) departureDate = "N/A";
         if (returnDate == null) returnDate = "N/A";
         if (departureAirport == null) departureAirport = "N/A";
         if (arrivalAirport == null) arrivalAirport = "N/A";
-        if (flightResponse == null) flightResponse = new FlightResponse();
-
-        flightList = parseFlightInfo(flightResponse, departureDate, returnDate, extractCity(departureAirport), extractCity(arrivalAirport), adultCount, babyCount);
+        if (flightResponse == null) flightResponse = new ArrayList<>();
+        flightList = parseFlightInfo(flightResponse, extractCity(departureAirport), extractCity(arrivalAirport), adultCount, babyCount);
 
         recyclerViewFlights = findViewById(R.id.recyclerViewFlights);
         recyclerViewFlights.setLayoutManager(new LinearLayoutManager(this));
         flightAdapter = new FlightAdapter(flightList, this);
         recyclerViewFlights.setAdapter(flightAdapter);
+        setupBottomNavigationBar();
     }
 
-    private List<Flight> parseFlightInfo(FlightResponse flightResponse, String departureDate, String returnDate, String departureAirport, String arrivalAirport, int adults, int children) {
+    private List<Flight> parseFlightInfo(List<Map<String, Object>> flightData, String departureAirport, String arrivalAirport, int adults, int children) {
         List<Flight> flights = new ArrayList<>();
-        List<String> airlines = flightResponse.getAirlines();
-        List<String> urls = flightResponse.getUrls();
 
-        for (int i = 0; i < airlines.size(); i++) {
-            String airline = airlines.get(i);
-            String url = urls.get(i);
-            Flight flight = new Flight(
-                    "flightID" + i,
-                    airline,
-                    departureDate,
-                    returnDate,
-                    departureAirport,
-                    arrivalAirport,
-                    "",
-                    adults,
-                    children
+        for (Map<String, Object> flightDetails : flightData) {
+            // Creating a new Flight object using the fromJson method
+            Flight newFlight = new Flight(
+                    (String) flightDetails.get("link"), // Use the link as the flight ID
+                    (String) flightDetails.get("airline"),
+                    (String) flightDetails.get("outboundDeparture"),
+                    (String) flightDetails.get("outboundArrival"),
+                    (String) flightDetails.get("returnDeparture"),
+                    (String) flightDetails.get("returnArrival"),
+                    departureAirport, // Override with the parameter
+                    arrivalAirport,  // Override with the parameter
+                    (String) flightDetails.get("price"),
+                    adults, // Override with the parameter
+                    children // Override with the parameter
             );
-            flight.getObjectDetails().put("url", url);
-            flights.add(flight);
+            flights.add(newFlight);
         }
         return flights;
     }
+
+
+
+
+
+
 
     private String extractCity(String location) {
         if (location != null && location.contains(",")) {
@@ -131,13 +159,18 @@ public class DisplayFlightsActivity extends AppCompatActivity {
         }
     }
 
-    public void setReturningFromBooking(boolean returningFromBooking, String airline, String departureTime, String arrivalTime, String departureAirport, String arrivalAirport, int adults, int children) {
+    public void setReturningFromBooking(boolean returningFromBooking, String airline, String outboundDeparture, String outboundArrival,
+                                        String returnDeparture, String returnArrival, String departureAirport, String arrivalAirport,
+                                        String cost, int adults, int children) {
         isReturningFromBooking = returningFromBooking;
         selectedAirline = airline;
-        selectedDepartureTime = departureTime;
-        selectedArrivalTime = arrivalTime;
+        selectedOutboundDeparture = outboundDeparture;
+        selectedOutboundArrival = outboundArrival;
+        selectedReturnDeparture = returnDeparture;
+        selectedReturnArrival = returnArrival;
         selectedDepartureAirport = departureAirport;
         selectedArrivalAirport = arrivalAirport;
+        selectedCost = cost;
         selectedAdults = adults;
         selectedChildren = children;
     }
@@ -145,37 +178,22 @@ public class DisplayFlightsActivity extends AppCompatActivity {
     private void showBookingConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Did you successfully book the flight?")
-                .setPositiveButton("Yes", (dialog, id) -> showCostInputDialog())
+                .setPositiveButton("Yes", (dialog, id) -> handleFlightBooking())
                 .setNegativeButton("No", (dialog, id) -> dialog.dismiss());
         builder.create().show();
     }
 
-    private void showCostInputDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter the cost of the flight");
-
-        final EditText input = new EditText(this);
-        input.setInputType(android.text.InputType.TYPE_CLASS_NUMBER | android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        builder.setView(input);
-
-        builder.setPositiveButton("Submit", (dialog, id) -> {
-            String cost = input.getText().toString();
-            handleFlightBooking(cost);
-        });
-        builder.setNegativeButton("Cancel", (dialog, id) -> dialog.cancel());
-
-        builder.create().show();
-    }
-
-    private void handleFlightBooking(String cost) {
+    private void handleFlightBooking() {
         Flight flight = new Flight(
                 "1",  // Placeholder ID
                 selectedAirline,
-                selectedDepartureTime,
-                selectedArrivalTime,
+                selectedOutboundDeparture,
+                selectedOutboundArrival,
+                selectedReturnDeparture,
+                selectedReturnArrival,
                 selectedDepartureAirport,
                 selectedArrivalAirport,
-                cost,
+                selectedCost,
                 selectedAdults,
                 selectedChildren
         );
@@ -190,27 +208,24 @@ public class DisplayFlightsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BoundaryObject> call, Response<BoundaryObject> response) {
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "Object created: " + response.body());
+                    Log.d("FlightCreated", "Object created: " + response.body());
                     // Create and send the command after successfully creating the object
-                    createFlightBookingCommand(response.body(), cost);
-//                    Intent intent = new Intent(DisplayFlightsActivity.this, DisplayBookedFlights.class);
-//                    intent.putExtra("userIdBoundary", new Gson().toJson(userIdBoundary));
-//                    startActivity(intent);
+                    createFlightBookingCommand(response.body());
                 } else {
-                    Log.e(TAG, "Create object failed: " + response.toString());
+                    Log.e("FlightCreateError", "Create object failed: " + response.toString());
                 }
             }
 
             @Override
             public void onFailure(Call<BoundaryObject> call, Throwable t) {
-                Log.e(TAG, "Create object error: " + t.getMessage());
+                Log.e("FlightCreateError", "Create object error: " + t.getMessage());
             }
         });
 
         Toast.makeText(this, "Flight booked: " + boundaryObject.toString(), Toast.LENGTH_LONG).show();
     }
 
-    private void createFlightBookingCommand(BoundaryObject boundaryObject, String cost) {
+    private void createFlightBookingCommand(BoundaryObject boundaryObject) {
         BoundaryCommand boundaryCommand = new BoundaryCommand();
         boundaryCommand.setCommandId(new BoundaryCommand.CommandId("yourSuperApp", "yourMiniApp", "1"));
         boundaryCommand.setCommand("Book a flight");
@@ -226,10 +241,12 @@ public class DisplayFlightsActivity extends AppCompatActivity {
         boundaryCommand.setInvokedBy(invokedBy);
 
         Map<String, Object> commandAttributes = new HashMap<>();
-        commandAttributes.put("cost", cost);
+        commandAttributes.put("cost", selectedCost);
         commandAttributes.put("airline", selectedAirline);
-        commandAttributes.put("departureTime", selectedDepartureTime);
-        commandAttributes.put("arrivalTime", selectedArrivalTime);
+        commandAttributes.put("outboundDeparture", selectedOutboundDeparture);
+        commandAttributes.put("outboundArrival", selectedOutboundArrival);
+        commandAttributes.put("returnDeparture", selectedReturnDeparture);
+        commandAttributes.put("returnArrival", selectedReturnArrival);
         commandAttributes.put("departureAirport", selectedDepartureAirport);
         commandAttributes.put("arrivalAirport", selectedArrivalAirport);
         commandAttributes.put("adults", selectedAdults);
@@ -241,17 +258,16 @@ public class DisplayFlightsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BoundaryCommand> call, Response<BoundaryCommand> response) {
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "Command created: " + response.body());
+                    Log.d("CommandCreated", "Command created: " + response.body());
                 } else {
-                    Log.e(TAG, "Create command failed: " + response.toString());
+                    Log.e("CommandCreationFailed", "Create command failed: " + response.toString());
                 }
             }
 
             @Override
             public void onFailure(Call<BoundaryCommand> call, Throwable t) {
-                Log.e(TAG, "Create command error: " + t.getMessage());
+                Log.e("CommandCreationFailed", "Create command error: " + t.getMessage());
             }
         });
     }
-
 }

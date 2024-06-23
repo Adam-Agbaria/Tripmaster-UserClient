@@ -21,6 +21,7 @@ import dev.adamag.tripmasterfront.model.BoundaryCommand;
 import dev.adamag.tripmasterfront.model.BoundaryObject;
 import dev.adamag.tripmasterfront.model.Password;
 import dev.adamag.tripmasterfront.model.User;
+import dev.adamag.tripmasterfront.model.UserInput;
 import dev.adamag.tripmasterfront.model.UserRole;
 import dev.adamag.tripmasterfront.network.CommandServiceImpl;
 import dev.adamag.tripmasterfront.network.ObjectService;
@@ -40,7 +41,6 @@ import java.util.regex.Pattern;
 public class SignupActivity extends AppCompatActivity {
 
     private EditText usernameEditText, emailEditText, passwordEditText, passwordConfirmEditText;
-    private Spinner roleSpinner;
     private MaterialButton signupButton;
     private ProgressBar progressBar;
 
@@ -55,14 +55,10 @@ public class SignupActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.SGP_email_EDT);
         passwordEditText = findViewById(R.id.SGP_password_EDT);
         passwordConfirmEditText = findViewById(R.id.SGP_passwordCon_EDT);
-        roleSpinner = findViewById(R.id.SGP_role_spinner);
         signupButton = findViewById(R.id.SGP_button_BTN);
         progressBar = findViewById(R.id.progressBar);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.user_roles, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        roleSpinner.setAdapter(adapter);
+
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +67,7 @@ public class SignupActivity extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
                 String passwordConfirm = passwordConfirmEditText.getText().toString();
-                String role = roleSpinner.getSelectedItem().toString();
+                String role = UserRole.SUPERAPP_USER.toString();
 
                 if (!password.equals(passwordConfirm)) {
                     Toast.makeText(SignupActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
@@ -129,18 +125,14 @@ public class SignupActivity extends AppCompatActivity {
         UserService userService = RetrofitClient.getTripMasterClient().create(UserService.class);
         ObjectService objectService = RetrofitClient.getTripMasterClient().create(ObjectService.class);
 
-        User newUser = new User();
-        User.UserIdBoundary userIdBoundary = new User.UserIdBoundary();
-        userIdBoundary.setEmail(email);
-        newUser.setUserId(userIdBoundary);
+        UserInput newUser = new UserInput();
+        newUser.setEmail(email);
         newUser.setUsername(username);
         newUser.setAvatar("A");
+        newUser.setRole(UserRole.SUPERAPP_USER);
 
-        if (role.equals("Travel Agent")) {
-            newUser.setRole(UserRole.MINIAPP_USER);
-        } else {
-            newUser.setRole(UserRole.SUPERAPP_USER);
-        }
+
+
 
         Call<User> userCall = userService.createUser(newUser);
         userCall.enqueue(new Callback<User>() {
@@ -170,7 +162,7 @@ public class SignupActivity extends AppCompatActivity {
                                 public void onResponse(Call<BoundaryObject> call, Response<BoundaryObject> response) {
                                     progressBar.setVisibility(View.GONE);
                                     if (response.isSuccessful()) {
-                                        saveRegisterCommand(createdUser);
+//                                        saveRegisterCommand(createdUser);
                                         Toast.makeText(SignupActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                                         startActivity(intent);

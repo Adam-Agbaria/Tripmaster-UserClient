@@ -1,6 +1,8 @@
 package dev.adamag.tripmasterfront.userApp.Activity;
 
 import dev.adamag.tripmasterfront.model.User.UserIdBoundary;
+import dev.adamag.tripmasterfront.model.Flight;
+import java.util.List;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +21,9 @@ import com.google.gson.Gson;
 
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import dev.adamag.tripmasterfront.R;
 import dev.adamag.tripmasterfront.model.FlightResponse;
@@ -27,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchFlightsActivity extends AppCompatActivity {
+public class SearchFlightsActivity extends MenuBarActivity {
     private MaterialButton takeoffDateButton;
     private MaterialButton landDateButton;
     private AutoCompleteTextView textViewTakeoff;
@@ -43,6 +48,7 @@ public class SearchFlightsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_flights);
+        setupBottomNavigationBar();
 
         setupTripTypeButtons();
         setupLocationPicker();
@@ -177,6 +183,18 @@ public class SearchFlightsActivity extends AppCompatActivity {
         counterLabel.setText(String.valueOf(count));
     }
 
+    private String extractCity(String location) {
+        if (location != null) {
+            Pattern pattern = Pattern.compile("\\b[A-Z]{3}\\b");
+            Matcher matcher = pattern.matcher(location);
+            if (matcher.find()) {
+                return matcher.group();
+            }
+        }
+        return location;
+    }
+
+
     private void sendFlightQueryToServer() {
         String departureDate = takeoffDateButton.getText().toString();
         String returnDate = landDateButton.getText().toString();
@@ -184,26 +202,35 @@ public class SearchFlightsActivity extends AppCompatActivity {
         String arrivalAirport = textViewLanding.getText().toString();
         int adultCount = Integer.parseInt(adultNumLabel.getText().toString());
         int babyCount = Integer.parseInt(babyNumLabel.getText().toString());
-
-        ScrapingServiceImpl.getFlightInfo(tripType, departureDate, returnDate, departureAirport, arrivalAirport, adultCount, babyCount, new Callback<FlightResponse>() {
+        String departureCity = extractCity(departureAirport);
+        String arrivalCity = extractCity(arrivalAirport);
+        ScrapingServiceImpl.getFlightInfo(tripType, departureDate, returnDate, departureCity, arrivalCity, adultCount, babyCount, new Callback<List<Map<String, Object>>>() {
             @Override
-            public void onResponse(Call<FlightResponse> call, Response<FlightResponse> response) {
+            public void onResponse(Call<List<Map<String, Object>>> call, Response<List<Map<String, Object>>> response) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
                     if (response.isSuccessful()) {
                         Log.d("FlightSearchResponse", "Response: " + response);
+                        Log.d("FlightSearchResponse", "Response Body: " + response.body().toString());  // Log the body of the response
+
+                        List<Map<String, Object>> flights = response.body();
 
                         Intent intent = new Intent(SearchFlightsActivity.this, DisplayFlightsActivity.class);
+                        String departureCity = extractCity(departureAirport);
+                        String arrivalCity = extractCity(arrivalAirport);
 
                         intent.putExtra("tripType", tripType);
                         intent.putExtra("departureDate", departureDate);
                         intent.putExtra("returnDate", returnDate);
-                        intent.putExtra("departureAirport", departureAirport);
-                        intent.putExtra("arrivalAirport", arrivalAirport);
+                        intent.putExtra("departureAirport", departureCity);
+                        intent.putExtra("arrivalAirport", arrivalCity);
                         intent.putExtra("adultCount", adultCount);
                         intent.putExtra("babyCount", babyCount);
                         intent.putExtra("userIdBoundary", userIdBoundaryJson);
 
-                        intent.putExtra("flight_info", response.body());
+                        Gson gson = new Gson();
+                        String flightsJson = gson.toJson(flights);
+                        Log.d("FlightSearchResponse", "Flights JSON: " + flightsJson);  // Log the JSON string of flights
+                        intent.putExtra("flight_info", flightsJson);
 
                         startActivity(intent);
                     } else {
@@ -213,7 +240,7 @@ public class SearchFlightsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<FlightResponse> call, Throwable t) {
+            public void onFailure(Call<List<Map<String, Object>>> call, Throwable t) {
                 Log.d("FlightSearchError", "Network Error: " + t.getMessage());
             }
         });

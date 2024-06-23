@@ -10,22 +10,26 @@ public class Flight extends BoundaryObject {
         super();
     }
 
-    public Flight(String flightID, String airline, String departureTime, String arrivalTime, String origin, String destination, String price, int adults, int children) {
+    public Flight(String link, String airline, String outboundDeparture, String outboundArrival,
+                  String returnDeparture, String returnArrival, String origin, String destination,
+                  String price, int adults, int children) {
         super(
-                new ObjectIdBoundary("YourSuperApp", flightID),
+                new ObjectIdBoundary("YourSuperApp", link), // Use link as the ID
                 "Flight",
                 "Flight to " + destination,
                 new LocationBoundary(0.0, 0.0),
-                ActivatedStatus.ACTIVE,
+                true,
                 new Date().toString(),
                 new CreatedByBoundary(new CreatedByBoundary.UserIdBoundary("YourSuperApp", "user@example.com")),
                 new HashMap<String, Object>()
         );
 
-        this.getObjectDetails().put("flightID", flightID);
+        this.getObjectDetails().put("link", link);
         this.getObjectDetails().put("airline", airline);
-        this.getObjectDetails().put("departureTime", departureTime);
-        this.getObjectDetails().put("arrivalTime", arrivalTime);
+        this.getObjectDetails().put("outboundDeparture", outboundDeparture);
+        this.getObjectDetails().put("outboundArrival", outboundArrival);
+        this.getObjectDetails().put("returnDeparture", returnDeparture);
+        this.getObjectDetails().put("returnArrival", returnArrival);
         this.getObjectDetails().put("origin", origin);
         this.getObjectDetails().put("destination", destination);
         this.getObjectDetails().put("price", price);
@@ -33,26 +37,30 @@ public class Flight extends BoundaryObject {
         this.getObjectDetails().put("children", children);
     }
 
-    public static Flight fromBoundaryObject(BoundaryObject boundaryObject) {
+    public static Flight fromJson(Map<String, Object> json) {
         return new Flight(
-                (String) boundaryObject.getObjectDetails().get("flightID"),
-                (String) boundaryObject.getObjectDetails().get("airline"),
-                (String) boundaryObject.getObjectDetails().get("departureTime"),
-                (String) boundaryObject.getObjectDetails().get("arrivalTime"),
-                (String) boundaryObject.getObjectDetails().get("origin"),
-                (String) boundaryObject.getObjectDetails().get("destination"),
-                (String) boundaryObject.getObjectDetails().get("price"),
-                (int) boundaryObject.getObjectDetails().get("adults"),
-                (int) boundaryObject.getObjectDetails().get("children")
+                (String) json.get("link"),
+                (String) json.get("airline"),
+                (String) json.get("outboundDeparture"),
+                (String) json.get("outboundArrival"),
+                (String) json.get("returnDeparture"),
+                (String) json.get("returnArrival"),
+                (String) json.get("origin"),
+                (String) json.get("destination"),
+                (String) json.get("price"),
+                json.get("adults") != null ? (int) json.get("adults") : 0,
+                json.get("children") != null ? (int) json.get("children") : 0
         );
     }
 
     public BoundaryObject toBoundaryObject() {
         Map<String, Object> details = new HashMap<>();
-        details.put("flightID", this.getObjectDetails().get("flightID"));
+        details.put("link", this.getObjectDetails().get("link"));
         details.put("airline", this.getObjectDetails().get("airline"));
-        details.put("departureTime", this.getObjectDetails().get("departureTime"));
-        details.put("arrivalTime", this.getObjectDetails().get("arrivalTime"));
+        details.put("outboundDeparture", this.getObjectDetails().get("outboundDeparture"));
+        details.put("outboundArrival", this.getObjectDetails().get("outboundArrival"));
+        details.put("returnDeparture", this.getObjectDetails().get("returnDeparture"));
+        details.put("returnArrival", this.getObjectDetails().get("returnArrival"));
         details.put("origin", this.getObjectDetails().get("origin"));
         details.put("destination", this.getObjectDetails().get("destination"));
         details.put("price", this.getObjectDetails().get("price"));
@@ -64,7 +72,7 @@ public class Flight extends BoundaryObject {
                 "Flight",
                 "Flight to " + details.get("destination"),
                 new LocationBoundary(0.0, 0.0),
-                ActivatedStatus.ACTIVE,
+                true,
                 new Date().toString(),
                 new CreatedByBoundary(new CreatedByBoundary.UserIdBoundary("YourSuperApp", "user@example.com")),
                 details
