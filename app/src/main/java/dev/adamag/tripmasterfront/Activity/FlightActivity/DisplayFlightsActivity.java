@@ -1,13 +1,11 @@
-package dev.adamag.tripmasterfront.userApp.Activity;
+package dev.adamag.tripmasterfront.Activity.FlightActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,17 +25,15 @@ import dev.adamag.tripmasterfront.R;
 import dev.adamag.tripmasterfront.model.BoundaryCommand;
 import dev.adamag.tripmasterfront.model.BoundaryObject;
 import dev.adamag.tripmasterfront.model.Flight;
-import dev.adamag.tripmasterfront.model.FlightResponse;
 import dev.adamag.tripmasterfront.model.User;
-import dev.adamag.tripmasterfront.userApp.Activity.MenuBarActivity;
 import dev.adamag.tripmasterfront.network.CommandServiceImpl;
 import dev.adamag.tripmasterfront.network.ObjectServiceImpl;
-import dev.adamag.tripmasterfront.userApp.Adapter.FlightAdapter;
+import dev.adamag.tripmasterfront.Activity.Adapter.FlightAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DisplayFlightsActivity extends MenuBarActivity{
+public class DisplayFlightsActivity extends MenuBarActivity {
     private RecyclerView recyclerViewFlights;
     private FlightAdapter flightAdapter;
     private List<Flight> flightList;
@@ -53,6 +49,8 @@ public class DisplayFlightsActivity extends MenuBarActivity{
     private String selectedCost;
     private int selectedAdults;
     private int selectedChildren;
+    private String selectedDepartureDate;
+    private String selectedReturnDate;
     private User.UserIdBoundary userIdBoundary;
 
     @Override
@@ -97,15 +95,13 @@ public class DisplayFlightsActivity extends MenuBarActivity{
             Log.e("UserIdBoundary", "userIdBoundaryJson is null");
         }
 
-
-
         if (tripType == null) tripType = "N/A";
         if (departureDate == null) departureDate = "N/A";
         if (returnDate == null) returnDate = "N/A";
         if (departureAirport == null) departureAirport = "N/A";
         if (arrivalAirport == null) arrivalAirport = "N/A";
         if (flightResponse == null) flightResponse = new ArrayList<>();
-        flightList = parseFlightInfo(flightResponse, extractCity(departureAirport), extractCity(arrivalAirport), adultCount, babyCount);
+        flightList = parseFlightInfo(flightResponse, extractCity(departureAirport), extractCity(arrivalAirport), adultCount, babyCount, departureDate, returnDate);
 
         recyclerViewFlights = findViewById(R.id.recyclerViewFlights);
         recyclerViewFlights.setLayoutManager(new LinearLayoutManager(this));
@@ -114,7 +110,7 @@ public class DisplayFlightsActivity extends MenuBarActivity{
         setupBottomNavigationBar();
     }
 
-    private List<Flight> parseFlightInfo(List<Map<String, Object>> flightData, String departureAirport, String arrivalAirport, int adults, int children) {
+    private List<Flight> parseFlightInfo(List<Map<String, Object>> flightData, String departureAirport, String arrivalAirport, int adults, int children, String departureDate, String returnDate) {
         List<Flight> flights = new ArrayList<>();
 
         for (Map<String, Object> flightDetails : flightData) {
@@ -130,18 +126,14 @@ public class DisplayFlightsActivity extends MenuBarActivity{
                     arrivalAirport,  // Override with the parameter
                     (String) flightDetails.get("price"),
                     adults, // Override with the parameter
-                    children // Override with the parameter
+                    children, // Override with the parameter
+                    departureDate,
+                    returnDate
             );
             flights.add(newFlight);
         }
         return flights;
     }
-
-
-
-
-
-
 
     private String extractCity(String location) {
         if (location != null && location.contains(",")) {
@@ -161,7 +153,7 @@ public class DisplayFlightsActivity extends MenuBarActivity{
 
     public void setReturningFromBooking(boolean returningFromBooking, String airline, String outboundDeparture, String outboundArrival,
                                         String returnDeparture, String returnArrival, String departureAirport, String arrivalAirport,
-                                        String cost, int adults, int children) {
+                                        String cost, int adults, int children, String departureDate, String returnDate) {
         isReturningFromBooking = returningFromBooking;
         selectedAirline = airline;
         selectedOutboundDeparture = outboundDeparture;
@@ -173,6 +165,8 @@ public class DisplayFlightsActivity extends MenuBarActivity{
         selectedCost = cost;
         selectedAdults = adults;
         selectedChildren = children;
+        selectedDepartureDate = departureDate;
+        selectedReturnDate = returnDate;
     }
 
     private void showBookingConfirmationDialog() {
@@ -195,7 +189,9 @@ public class DisplayFlightsActivity extends MenuBarActivity{
                 selectedArrivalAirport,
                 selectedCost,
                 selectedAdults,
-                selectedChildren
+                selectedChildren,
+                selectedDepartureDate,
+                selectedReturnDate
         );
 
         BoundaryObject boundaryObject = flight.toBoundaryObject();
@@ -251,6 +247,8 @@ public class DisplayFlightsActivity extends MenuBarActivity{
         commandAttributes.put("arrivalAirport", selectedArrivalAirport);
         commandAttributes.put("adults", selectedAdults);
         commandAttributes.put("children", selectedChildren);
+        commandAttributes.put("departureDate", selectedDepartureDate);
+        commandAttributes.put("returnDate", selectedReturnDate);
         boundaryCommand.setCommandAttributes(commandAttributes);
 
         CommandServiceImpl commandService = new CommandServiceImpl();

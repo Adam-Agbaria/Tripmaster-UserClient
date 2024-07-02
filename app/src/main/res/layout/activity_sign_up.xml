@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.SignupActivity"
+    tools:context=".Activity.AuthActivity.SignupActivity"
     android:background="@drawable/world_map"
     android:backgroundTint="@color/mainColor">
 

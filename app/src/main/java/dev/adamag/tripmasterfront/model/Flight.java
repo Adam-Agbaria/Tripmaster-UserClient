@@ -12,7 +12,7 @@ public class Flight extends BoundaryObject {
 
     public Flight(String link, String airline, String outboundDeparture, String outboundArrival,
                   String returnDeparture, String returnArrival, String origin, String destination,
-                  String price, int adults, int children) {
+                  String price, int adults, int children, String departureDate, String returnDate) {
         super(
                 new ObjectIdBoundary("YourSuperApp", link), // Use link as the ID
                 "Flight",
@@ -35,6 +35,8 @@ public class Flight extends BoundaryObject {
         this.getObjectDetails().put("price", price);
         this.getObjectDetails().put("adults", adults);
         this.getObjectDetails().put("children", children);
+        this.getObjectDetails().put("departureDate", departureDate);
+        this.getObjectDetails().put("returnDate", returnDate);
     }
 
     public static Flight fromJson(Map<String, Object> json) {
@@ -49,7 +51,9 @@ public class Flight extends BoundaryObject {
                 (String) json.get("destination"),
                 (String) json.get("price"),
                 json.get("adults") != null ? (int) json.get("adults") : 0,
-                json.get("children") != null ? (int) json.get("children") : 0
+                json.get("children") != null ? (int) json.get("children") : 0,
+                (String) json.get("departureDate"),
+                (String) json.get("returnDate")
         );
     }
 
@@ -66,6 +70,8 @@ public class Flight extends BoundaryObject {
         details.put("price", this.getObjectDetails().get("price"));
         details.put("adults", this.getObjectDetails().get("adults"));
         details.put("children", this.getObjectDetails().get("children"));
+        details.put("departureDate", this.getObjectDetails().get("departureDate"));
+        details.put("returnDate", this.getObjectDetails().get("returnDate"));
 
         return new BoundaryObject(
                 new ObjectIdBoundary(this.getObjectId().getSuperapp(), this.getObjectId().getId()),

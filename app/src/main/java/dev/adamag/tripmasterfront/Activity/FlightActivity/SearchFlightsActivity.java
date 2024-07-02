@@ -1,7 +1,5 @@
-package dev.adamag.tripmasterfront.userApp.Activity;
+package dev.adamag.tripmasterfront.Activity.FlightActivity;
 
-import dev.adamag.tripmasterfront.model.User.UserIdBoundary;
-import dev.adamag.tripmasterfront.model.Flight;
 import java.util.List;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -15,7 +13,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 
@@ -26,7 +23,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import dev.adamag.tripmasterfront.R;
-import dev.adamag.tripmasterfront.model.FlightResponse;
 import dev.adamag.tripmasterfront.network.ScrapingServiceImpl;
 import retrofit2.Call;
 import retrofit2.Callback;

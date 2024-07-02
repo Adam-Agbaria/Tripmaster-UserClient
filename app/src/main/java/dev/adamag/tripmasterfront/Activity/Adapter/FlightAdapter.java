@@ -1,4 +1,4 @@
-package dev.adamag.tripmasterfront.userApp.Adapter;
+package dev.adamag.tripmasterfront.Activity.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import java.util.Map;
 
 import dev.adamag.tripmasterfront.R;
 import dev.adamag.tripmasterfront.model.Flight;
-import dev.adamag.tripmasterfront.userApp.Activity.DisplayFlightsActivity;
+import dev.adamag.tripmasterfront.Activity.FlightActivity.DisplayFlightsActivity;
 
 public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightViewHolder> {
     private List<Flight> flightList;
@@ -48,6 +48,8 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
         holder.textViewReturnArrivalTime.setText("Return Arrival: " + getValue(details, "returnArrival"));
         holder.textViewAdults.setText("Adults: " + getValue(details, "adults"));
         holder.textViewChildren.setText("Children: " + getValue(details, "children"));
+        holder.textViewDepartureDate.setText("Departure Date: " + getValue(details, "departureDate"));
+        holder.textViewReturnDate.setText("Return Date: " + getValue(details, "returnDate"));
 
         String url = getValue(details, "link");
         holder.buttonBookFlight.setOnClickListener(v -> {
@@ -61,7 +63,9 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
                     getValue(details, "destination"),
                     getValue(details, "price"),
                     Integer.parseInt(getValue(details, "adults")),
-                    Integer.parseInt(getValue(details, "children")));
+                    Integer.parseInt(getValue(details, "children")),
+                    getValue(details, "departureDate"),
+                    getValue(details, "returnDate"));
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             context.startActivity(browserIntent);
         });
@@ -74,7 +78,8 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
 
     public static class FlightViewHolder extends RecyclerView.ViewHolder {
         TextView textViewAirline, textViewPrice, textViewOutboundDepartureTime, textViewOutboundArrivalTime,
-                textViewReturnDepartureTime, textViewReturnArrivalTime, textViewAdults, textViewChildren;
+                textViewReturnDepartureTime, textViewReturnArrivalTime, textViewAdults, textViewChildren,
+                textViewDepartureDate, textViewReturnDate;
         Button buttonBookFlight;
 
         public FlightViewHolder(@NonNull View itemView) {
@@ -87,6 +92,8 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
             textViewReturnArrivalTime = itemView.findViewById(R.id.textViewReturnArrivalTime);
             textViewAdults = itemView.findViewById(R.id.textViewAdults);
             textViewChildren = itemView.findViewById(R.id.textViewChildren);
+            textViewDepartureDate = itemView.findViewById(R.id.textViewDepartureDate);
+            textViewReturnDate = itemView.findViewById(R.id.textViewReturnDate);
             buttonBookFlight = itemView.findViewById(R.id.buttonBookFlight);
         }
     }

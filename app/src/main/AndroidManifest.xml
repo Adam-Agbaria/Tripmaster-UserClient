@@ -16,11 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TripMaster"
         tools:targetApi="31">
-        <activity android:name=".Activity.SignupActivity" />
-        <activity android:name=".Activity.LoginActivity" />
-        <activity android:name=".userApp.Activity.SearchFlightsActivity" />
-        <activity android:name=".userApp.Activity.DisplayFlightsActivity" />
-        <activity android:name=".userApp.Activity.DisplayBookedFlights" />
+        <activity android:name=".Activity.AuthActivity.SignupActivity" />
+        <activity android:name=".Activity.AuthActivity.LoginActivity" />
+        <activity android:name=".Activity.FlightActivity.SearchFlightsActivity" />
+        <activity android:name=".Activity.FlightActivity.DisplayFlightsActivity" />
+        <activity android:name=".Activity.FlightActivity.DisplayUserFlightsActivity" />
+        <activity android:name=".Activity.FlightActivity.MenuBarActivity"/>
+        <activity android:name=".Activity.VacationPackageActivity.DisplayAllVacationPackagesActivity"/>
+
 
 
         <activity android:name=".MainActivity"

@@ -3,17 +3,13 @@ package dev.adamag.tripmasterfront;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 
-import dev.adamag.tripmasterfront.Activity.LoginActivity;
-import dev.adamag.tripmasterfront.Activity.SignupActivity;
-import dev.adamag.tripmasterfront.R;
+import dev.adamag.tripmasterfront.Activity.AuthActivity.LoginActivity;
+import dev.adamag.tripmasterfront.Activity.AuthActivity.SignupActivity;
 
 public class MainActivity extends AppCompatActivity {
 

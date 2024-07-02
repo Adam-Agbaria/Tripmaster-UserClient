@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".userApp.Activity.DisplayBookedFlights"
+    tools:context=".Activity.VacationPackageActivity.DisplayAllVacationPackagesActivity"
     android:background="@drawable/world_map"
     android:backgroundTint="@color/mainColor">
 
@@ -12,7 +12,7 @@
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#9E03A9F4"
+        android:background="@color/mainColor"
         android:orientation="vertical"
         android:paddingBottom="60dp">
         <LinearLayout
@@ -35,13 +35,13 @@
                     android:id="@+id/SF_profileName_LBL"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hello Adam"
+                    android:text="Hello User"
                     android:textColor="@color/white"
                     android:textSize="18dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Here are your booked flights"
+                    android:text="Explore our vacation packages"
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="20dp"/>
@@ -51,29 +51,42 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/topbar"
-        android:background="@color/white"
-        app:cardCornerRadius="40dp"
-        app:strokeWidth="0dp"
-        android:paddingBottom="40dp"
-        android:layout_marginTop="-30dp">
+        android:backgroundTint="@color/cardBackground"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        android:layout_margin="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/no_packages_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:gravity="center"
+                android:text="No vacation packages available."
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewFlights"
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:padding="10dp"
-                android:clipToPadding="false"
-                android:scrollbars="vertical"/>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:listitem="@layout/item_package" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
     <include
         android:id="@+id/bottom_bar"
         layout="@layout/layout_bottom_bar"

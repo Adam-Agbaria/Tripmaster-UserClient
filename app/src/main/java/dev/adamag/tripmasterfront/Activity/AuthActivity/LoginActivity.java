@@ -1,4 +1,4 @@
-package dev.adamag.tripmasterfront.Activity;
+package dev.adamag.tripmasterfront.Activity.AuthActivity;
 
 import static android.content.ContentValues.TAG;
 
@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import dev.adamag.tripmasterfront.R;
@@ -22,9 +21,8 @@ import dev.adamag.tripmasterfront.model.User;
 import dev.adamag.tripmasterfront.network.CommandServiceImpl;
 import dev.adamag.tripmasterfront.network.ObjectService;
 import dev.adamag.tripmasterfront.network.RetrofitClient;
-import dev.adamag.tripmasterfront.network.UserService;
 import dev.adamag.tripmasterfront.network.UserServiceImpl;
-import dev.adamag.tripmasterfront.userApp.Activity.SearchFlightsActivity;
+import dev.adamag.tripmasterfront.Activity.FlightActivity.SearchFlightsActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
