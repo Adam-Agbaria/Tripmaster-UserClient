@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <AutoCompleteTextView
+        android:id="@+id/destination_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Destination"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <EditText
+            android:id="@+id/min_stars_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Min Stars"
+            android:inputType="number"
+            android:text="1"/>
+
+        <EditText
+            android:id="@+id/max_stars_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Max Stars"
+            android:inputType="number"
+            android:text="5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <RadioButton
+            android:id="@+id/connection_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connection"/>
+
+        <RadioButton
+            android:id="@+id/connection_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Connection"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <EditText
+            android:id="@+id/min_price_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Min Price"
+            android:inputType="number"
+            android:text="0"/>
+
+        <EditText
+            android:id="@+id/max_price_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Max Price"
+            android:inputType="number"
+            android:text="20000"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/start_date_filter_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/buttons_tint"
+            android:text="Start Date (dd/MM/yyyy)"
+            android:inputType="date"/>
+
+        <Button
+            android:id="@+id/end_date_filter_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/buttons_tint"
+            android:text="End Date (dd/MM/yyyy)"
+            android:inputType="date"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/reset_filters_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF5252"
+            android:text="Reset Filters" />
+
+        <Button
+            android:id="@+id/apply_filters_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:backgroundTint="@color/checkedColor"
+            android:text="Apply Filters" />
+    </LinearLayout>
+</LinearLayout>

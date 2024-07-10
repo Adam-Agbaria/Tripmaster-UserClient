@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
@@ -38,6 +40,10 @@ public class SearchFlightsActivity extends MenuBarActivity {
     private TextView babyNumLabel;
     private String tripType = "Round Trip";
     private String userIdBoundaryJson;
+    private ProgressBar loadingIndicator;
+    private RelativeLayout loadingOverlay;
+
+
 
 
     @Override
@@ -54,6 +60,10 @@ public class SearchFlightsActivity extends MenuBarActivity {
 
         Intent intent = getIntent();
         userIdBoundaryJson = intent.getStringExtra("userIdBoundary");
+
+        // Initialize loading overlay and indicator
+        loadingOverlay = findViewById(R.id.loadingOverlay);
+        loadingIndicator = findViewById(R.id.loadingIndicator);
     }
 
     private void setupSearchButton() {
@@ -61,6 +71,7 @@ public class SearchFlightsActivity extends MenuBarActivity {
         searchFlightsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showLoading();
                 sendFlightQueryToServer();
             }
         });
@@ -189,7 +200,13 @@ public class SearchFlightsActivity extends MenuBarActivity {
         }
         return location;
     }
+    private void showLoading() {
+        loadingOverlay.setVisibility(View.VISIBLE);
+    }
 
+    private void hideLoading() {
+        loadingOverlay.setVisibility(View.GONE);
+    }
 
     private void sendFlightQueryToServer() {
         String departureDate = takeoffDateButton.getText().toString();
@@ -232,11 +249,13 @@ public class SearchFlightsActivity extends MenuBarActivity {
                     } else {
                         Log.d("FlightSearchError", "Error Response: " + response.errorBody().toString());
                     }
+                    hideLoading();
                 }, 1000); // 1000 milliseconds = 1 second
             }
 
             @Override
             public void onFailure(Call<List<Map<String, Object>>> call, Throwable t) {
+                hideLoading();
                 Log.d("FlightSearchError", "Network Error: " + t.getMessage());
             }
         });

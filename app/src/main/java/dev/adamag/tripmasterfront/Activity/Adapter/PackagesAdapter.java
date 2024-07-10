@@ -1,7 +1,5 @@
 package dev.adamag.tripmasterfront.Activity.Adapter;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +40,8 @@ public class PackagesAdapter extends RecyclerView.Adapter<PackagesAdapter.Packag
         String connectionFlight = "Connection Flight: " + (isConnectionFlight != null && isConnectionFlight ? "Yes" : "No");
         String price = "Price: " + String.valueOf(vacationPackage.getObjectDetails().get("price")) + "$";
         String email = "Contact: " + vacationPackage.getCreatedBy().getUserId().getEmail();
+        String startDate = "Start Date: " + (String) vacationPackage.getObjectDetails().get("startDate");
+        String endDate = "End Date: " + (String) vacationPackage.getObjectDetails().get("endDate");
 
         holder.packageNameTextView.setText(packageName);
         holder.destinationTextView.setText(destination);
@@ -50,8 +50,8 @@ public class PackagesAdapter extends RecyclerView.Adapter<PackagesAdapter.Packag
         holder.isConnectionFlightTextView.setText(connectionFlight);
         holder.priceTextView.setText(price);
         holder.emailTextView.setText(email);
-
-
+        holder.startDateTextView.setText(startDate);
+        holder.endDateTextView.setText(endDate);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class PackagesAdapter extends RecyclerView.Adapter<PackagesAdapter.Packag
 
     static class PackageViewHolder extends RecyclerView.ViewHolder {
 
-        TextView packageNameTextView, destinationTextView, hotelNameTextView, starsTextView, isConnectionFlightTextView, priceTextView, emailTextView;
+        TextView packageNameTextView, destinationTextView, hotelNameTextView, starsTextView, isConnectionFlightTextView, priceTextView, emailTextView, startDateTextView, endDateTextView;
 
         public PackageViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +72,8 @@ public class PackagesAdapter extends RecyclerView.Adapter<PackagesAdapter.Packag
             isConnectionFlightTextView = itemView.findViewById(R.id.is_connection_flight);
             priceTextView = itemView.findViewById(R.id.price);
             emailTextView = itemView.findViewById(R.id.email);
+            startDateTextView = itemView.findViewById(R.id.start_date);
+            endDateTextView = itemView.findViewById(R.id.end_date);
         }
     }
 }

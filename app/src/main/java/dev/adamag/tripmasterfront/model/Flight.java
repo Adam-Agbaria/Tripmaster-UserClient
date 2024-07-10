@@ -47,11 +47,11 @@ public class Flight extends BoundaryObject {
                 (String) json.get("outboundArrival"),
                 (String) json.get("returnDeparture"),
                 (String) json.get("returnArrival"),
-                (String) json.get("origin"),
-                (String) json.get("destination"),
+                (String) json.get("departureAirport"),
+                (String) json.get("arrivalAirport"),
                 (String) json.get("price"),
-                json.get("adults") != null ? (int) json.get("adults") : 0,
-                json.get("children") != null ? (int) json.get("children") : 0,
+                json.get("adults") != null ? ((Number) json.get("adults")).intValue() : 0,
+                json.get("children") != null ? ((Number) json.get("children")).intValue() : 0,
                 (String) json.get("departureDate"),
                 (String) json.get("returnDate")
         );

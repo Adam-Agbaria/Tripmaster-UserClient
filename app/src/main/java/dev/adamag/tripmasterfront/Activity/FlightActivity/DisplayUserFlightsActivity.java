@@ -108,23 +108,7 @@ public class DisplayUserFlightsActivity extends MenuBarActivity {
 
         for (BoundaryObject boundaryObject : flightData) {
             Map<String, Object> flightDetails = boundaryObject.getObjectDetails();
-
-            // Creating a new Flight object using the details from the map
-            Flight newFlight = new Flight(
-                    (String) flightDetails.get("link"), // Use the link as the flight ID
-                    (String) flightDetails.get("airline"),
-                    (String) flightDetails.get("outboundDeparture"),
-                    (String) flightDetails.get("outboundArrival"),
-                    (String) flightDetails.get("returnDeparture"),
-                    (String) flightDetails.get("returnArrival"),
-                    (String) flightDetails.get("departureAirport"),
-                    (String) flightDetails.get("arrivalAirport"),
-                    (String) flightDetails.get("price"),
-                    getIntValue(flightDetails, "adults"),
-                    getIntValue(flightDetails, "children"),
-                    (String) flightDetails.get("departureDate"),
-                    (String) flightDetails.get("returnDate")
-            );
+            Flight newFlight = Flight.fromJson(flightDetails);
             flights.add(newFlight);
         }
         return flights;

@@ -4,5 +4,13 @@
         <item>Travel Agent</item>
         <item>Customer</item>
     </string-array>
+
+    <string-array name="room_counts">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 </resources>
 

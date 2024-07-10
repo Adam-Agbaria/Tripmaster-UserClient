@@ -11,7 +11,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
+import dev.adamag.tripmasterfront.Activity.HomeActivity;
 import dev.adamag.tripmasterfront.R;
 import dev.adamag.tripmasterfront.model.BoundaryCommand;
 import dev.adamag.tripmasterfront.model.BoundaryObject;
@@ -39,6 +41,8 @@ public class SignupActivity extends AppCompatActivity {
     private EditText usernameEditText, emailEditText, passwordEditText, passwordConfirmEditText;
     private MaterialButton signupButton;
     private ProgressBar progressBar;
+    private Gson gson = new Gson();
+
 
     private static final String TAG = "SignupActivity";
 
@@ -160,7 +164,11 @@ public class SignupActivity extends AppCompatActivity {
                                     if (response.isSuccessful()) {
 //                                        saveRegisterCommand(createdUser);
                                         Toast.makeText(SignupActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                                        Intent intent;
+                                        intent = new Intent(SignupActivity.this, HomeActivity.class);
+
+                                        String userIdBoundaryJson = gson.toJson(createdUser.getUserId());
+                                        intent.putExtra("userIdBoundary", userIdBoundaryJson);
                                         startActivity(intent);
                                         finish();
                                     } else {

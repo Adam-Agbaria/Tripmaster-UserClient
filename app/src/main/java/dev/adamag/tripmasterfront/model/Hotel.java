@@ -35,17 +35,18 @@ public class Hotel extends BoundaryObject {
     }
 
     public static Hotel fromJson(Map<String, Object> json) {
-        return new Hotel(
-                (String) json.get("city"),
-                (String) json.get("checkInDate"),
-                (String) json.get("checkOutDate"),
-                json.get("adults") != null ? (int) json.get("adults") : 0,
-                json.get("children") != null ? (int) json.get("children") : 0,
-                json.get("rooms") != null ? (int) json.get("rooms") : 0,
-                (String) json.get("hotelName"),
-                (String) json.get("url"),
-                (String) json.get("price")
-        );
+        String city = json.get("city") != null ? json.get("city").toString() : null;
+        String checkInDate = json.get("checkInDate") != null ? json.get("checkInDate").toString() : null;
+        String checkOutDate = json.get("checkOutDate") != null ? json.get("checkOutDate").toString() : null;
+        String hotelName = json.get("hotelName") != null ? json.get("hotelName").toString() : null;
+        String url = json.get("url") != null ? json.get("url").toString() : null;
+        String price = json.get("price") != null ? json.get("price").toString() : null;
+
+        int adults = json.get("adults") != null ? ((Number) json.get("adults")).intValue() : 0;
+        int children = json.get("children") != null ? ((Number) json.get("children")).intValue() : 0;
+        int rooms = json.get("rooms") != null ? ((Number) json.get("rooms")).intValue() : 0;
+
+        return new Hotel(city, checkInDate, checkOutDate, adults, children, rooms, hotelName, url, price);
     }
 
     public BoundaryObject toBoundaryObject() {

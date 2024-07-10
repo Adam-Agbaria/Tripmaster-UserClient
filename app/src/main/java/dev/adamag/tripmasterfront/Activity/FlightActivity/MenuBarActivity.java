@@ -6,6 +6,9 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import dev.adamag.tripmasterfront.Activity.CheckListActivity.DisplayCheckListActivity;
+import dev.adamag.tripmasterfront.Activity.HomeActivity;
+import dev.adamag.tripmasterfront.Activity.HotelActivity.SearchHotelsActivity;
 import dev.adamag.tripmasterfront.Activity.VacationPackageActivity.DisplayAllVacationPackagesActivity;
 import dev.adamag.tripmasterfront.R;
 
@@ -25,10 +28,10 @@ public abstract class MenuBarActivity extends AppCompatActivity {
 
     protected void setupBottomNavigationBar() {
         // Make sure to set the content view to include the layout with the bottom bar
-        findViewById(R.id.homeButton).setOnClickListener(v -> navigateTo(DisplayUserFlightsActivity.class));
+        findViewById(R.id.homeButton).setOnClickListener(v -> navigateTo(HomeActivity.class));
         findViewById(R.id.ticketButton).setOnClickListener(v -> navigateTo(SearchFlightsActivity.class));
-        findViewById(R.id.notificationButton).setOnClickListener(v -> navigateTo(SearchFlightsActivity.class));
-        findViewById(R.id.bagButton).setOnClickListener(v -> navigateTo(DisplayAllVacationPackagesActivity.class));
+        findViewById(R.id.notificationButton).setOnClickListener(v -> navigateTo(SearchHotelsActivity.class));
+        findViewById(R.id.bagButton).setOnClickListener(v -> navigateTo(DisplayCheckListActivity.class));
     }
 
     private void navigateTo(Class<?> activityClass) {
