@@ -195,51 +195,8 @@ public class DisplayHotelsActivity extends MenuBarActivity {
             }
         });
 
-        Toast.makeText(this, "Hotel booked: " + boundaryObject.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Hotel booked!", Toast.LENGTH_LONG).show();
     }
 
-    private void createHotelBookingCommand(BoundaryObject boundaryObject) {
-        BoundaryCommand boundaryCommand = new BoundaryCommand();
-        boundaryCommand.setCommandId(new BoundaryCommand.CommandId("yourSuperApp", "yourMiniApp", "1"));
-        boundaryCommand.setCommand("Book a hotel");
 
-        BoundaryCommand.TargetObject targetObject = new BoundaryCommand.TargetObject();
-        targetObject.setObjectId(new BoundaryCommand.TargetObject.ObjectId(boundaryObject.getObjectId().getSuperapp(), boundaryObject.getObjectId().getId()));
-        boundaryCommand.setTargetObject(targetObject);
-
-        boundaryCommand.setInvocationTimestamp(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault()).format(new Date()));
-
-        BoundaryCommand.InvokedBy invokedBy = new BoundaryCommand.InvokedBy();
-        invokedBy.setUserId(new BoundaryCommand.InvokedBy.UserId(userIdBoundary.getSuperapp(), userIdBoundary.getEmail()));
-        boundaryCommand.setInvokedBy(invokedBy);
-
-        Map<String, Object> commandAttributes = new HashMap<>();
-        commandAttributes.put("hotelName", selectedHotelName);
-        commandAttributes.put("city", selectedCity);
-        commandAttributes.put("checkInDate", selectedCheckInDate);
-        commandAttributes.put("checkOutDate", selectedCheckOutDate);
-        commandAttributes.put("url", selectedUrl);
-        commandAttributes.put("cost", selectedCost);
-        commandAttributes.put("adults", selectedAdults);
-        commandAttributes.put("children", selectedChildren);
-        commandAttributes.put("rooms", selectedRooms);
-        boundaryCommand.setCommandAttributes(commandAttributes);
-
-        CommandServiceImpl commandService = new CommandServiceImpl();
-        commandService.createCommand("userApp", boundaryCommand, new Callback<BoundaryCommand>() {
-            @Override
-            public void onResponse(Call<BoundaryCommand> call, Response<BoundaryCommand> response) {
-                if (response.isSuccessful()) {
-                    Log.d("CommandCreated", "Command created: " + response.body());
-                } else {
-                    Log.e("CommandCreationFailed", "Create command failed: " + response.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BoundaryCommand> call, Throwable t) {
-                Log.e("CommandCreationFailed", "Create command error: " + t.getMessage());
-            }
-        });
-    }
 }

@@ -14,7 +14,7 @@ public class Flight extends BoundaryObject {
                   String returnDeparture, String returnArrival, String origin, String destination,
                   String price, int adults, int children, String departureDate, String returnDate) {
         super(
-                new ObjectIdBoundary("YourSuperApp", link), // Use link as the ID
+                new ObjectIdBoundary("YourSuperApp", link),                                 // Use link as the ID
                 "Flight",
                 "Flight to " + destination,
                 new LocationBoundary(0.0, 0.0),
@@ -48,7 +48,7 @@ public class Flight extends BoundaryObject {
                 (String) json.get("returnDeparture"),
                 (String) json.get("returnArrival"),
                 (String) json.get("departureAirport"),
-                (String) json.get("arrivalAirport"),
+                (String) json.get("destination"), // Added destination field here
                 (String) json.get("price"),
                 json.get("adults") != null ? ((Number) json.get("adults")).intValue() : 0,
                 json.get("children") != null ? ((Number) json.get("children")).intValue() : 0,

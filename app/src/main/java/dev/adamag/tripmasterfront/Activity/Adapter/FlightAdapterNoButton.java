@@ -37,7 +37,8 @@ public class FlightAdapterNoButton extends RecyclerView.Adapter<FlightAdapterNoB
         Map<String, Object> details = flight.getObjectDetails();
 
         holder.textViewAirline.setText(getValue(details, "airline"));
-        holder.textViewPrice.setText("Price: " + getValue(details, "price"));
+        holder.textViewDest.setText(getValue(details, "destination"));
+        holder.textViewPrice.setText("Price per: " + getValue(details, "price"));
         holder.textViewOutboundDepartureTime.setText("Outbound Departure: " + getValue(details, "outboundDeparture"));
         holder.textViewOutboundArrivalTime.setText("Outbound Arrival: " + getValue(details, "outboundArrival"));
         holder.textViewReturnDepartureTime.setText("Return Departure: " + getValue(details, "returnDeparture"));
@@ -56,11 +57,12 @@ public class FlightAdapterNoButton extends RecyclerView.Adapter<FlightAdapterNoB
     public static class FlightViewHolder extends RecyclerView.ViewHolder {
         TextView textViewAirline, textViewPrice, textViewOutboundDepartureTime, textViewOutboundArrivalTime,
                 textViewReturnDepartureTime, textViewReturnArrivalTime, textViewAdults, textViewChildren,
-                textViewDepartureDate, textViewReturnDate;
+                textViewDepartureDate, textViewReturnDate, textViewDest;
 
         public FlightViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewAirline = itemView.findViewById(R.id.textViewAirline);
+            textViewDest = itemView.findViewById(R.id.dest);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             textViewOutboundDepartureTime = itemView.findViewById(R.id.textViewOutboundDepartureTime);
             textViewOutboundArrivalTime = itemView.findViewById(R.id.textViewOutboundArrivalTime);

@@ -197,41 +197,5 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
     }
-    private void saveRegisterCommand(User user) {
-        CommandServiceImpl commandService = new CommandServiceImpl();
-        BoundaryCommand command = new BoundaryCommand();
-        command.setCommandId(new BoundaryCommand.CommandId("yourSuperApp", "yourMiniApp", "1"));
-        command.setCommand("Register");
 
-        BoundaryCommand.TargetObject targetObject = new BoundaryCommand.TargetObject();
-        targetObject.setObjectId(new BoundaryCommand.TargetObject.ObjectId("NoObjectRelated", "NoObjectRelated")); // Use appropriate object ID
-        command.setTargetObject(targetObject);
-
-        command.setInvocationTimestamp(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault()).format(new Date()));
-
-        BoundaryCommand.InvokedBy invokedBy = new BoundaryCommand.InvokedBy();
-        invokedBy.setUserId(new BoundaryCommand.InvokedBy.UserId(user.getUserId().getSuperapp(), user.getUserId().getEmail()));
-        command.setInvokedBy(invokedBy);
-
-        Map<String, Object> attributes = new HashMap<>();
-        attributes.put("email", user.getUserId().getEmail());
-        command.setCommandAttributes(attributes);
-
-
-        commandService.createCommand("userApp", command, new Callback<BoundaryCommand>() {
-            @Override
-            public void onResponse(Call<BoundaryCommand> call, Response<BoundaryCommand> response) {
-                if (response.isSuccessful()) {
-                    Log.d(TAG, "Command created: " + response.body());
-                } else {
-                    Log.e(TAG, "Create command failed: " + response.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BoundaryCommand> call, Throwable t) {
-                Log.e(TAG, "Create command error: " + t.getMessage());
-            }
-        });
-    }
 }

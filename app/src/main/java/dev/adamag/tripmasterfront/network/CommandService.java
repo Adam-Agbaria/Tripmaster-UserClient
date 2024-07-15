@@ -10,5 +10,5 @@ import retrofit2.http.Path;
 public interface CommandService {
 
     @POST("superapp/miniapp/{miniAppName}")
-    Call<BoundaryCommand> createCommand(@Path("miniAppName") String miniAppName, @Body BoundaryCommand boundaryCommand);
+    Call<BoundaryCommand[]> createCommand(@Path("miniAppName") String miniAppName, @Body BoundaryCommand boundaryCommand);
 }

@@ -206,7 +206,6 @@ public class DisplayFlightsActivity extends MenuBarActivity {
                 if (response.isSuccessful()) {
                     Log.d("FlightCreated", "Object created: " + response.body());
                     // Create and send the command after successfully creating the object
-                    createFlightBookingCommand(response.body());
                 } else {
                     Log.e("FlightCreateError", "Create object failed: " + response.toString());
                 }
@@ -218,54 +217,9 @@ public class DisplayFlightsActivity extends MenuBarActivity {
             }
         });
 
-        Toast.makeText(this, "Flight booked: " + boundaryObject.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Flight booked!", Toast.LENGTH_LONG).show();
     }
 
-    private void createFlightBookingCommand(BoundaryObject boundaryObject) {
-        BoundaryCommand boundaryCommand = new BoundaryCommand();
-        boundaryCommand.setCommandId(new BoundaryCommand.CommandId("yourSuperApp", "yourMiniApp", "1"));
-        boundaryCommand.setCommand("Book a flight");
 
-        BoundaryCommand.TargetObject targetObject = new BoundaryCommand.TargetObject();
-        targetObject.setObjectId(new BoundaryCommand.TargetObject.ObjectId(boundaryObject.getObjectId().getSuperapp(), boundaryObject.getObjectId().getId()));
-        boundaryCommand.setTargetObject(targetObject);
 
-        boundaryCommand.setInvocationTimestamp(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault()).format(new Date()));
-
-        BoundaryCommand.InvokedBy invokedBy = new BoundaryCommand.InvokedBy();
-        invokedBy.setUserId(new BoundaryCommand.InvokedBy.UserId(userIdBoundary.getSuperapp(), userIdBoundary.getEmail()));
-        boundaryCommand.setInvokedBy(invokedBy);
-
-        Map<String, Object> commandAttributes = new HashMap<>();
-        commandAttributes.put("cost", selectedCost);
-        commandAttributes.put("airline", selectedAirline);
-        commandAttributes.put("outboundDeparture", selectedOutboundDeparture);
-        commandAttributes.put("outboundArrival", selectedOutboundArrival);
-        commandAttributes.put("returnDeparture", selectedReturnDeparture);
-        commandAttributes.put("returnArrival", selectedReturnArrival);
-        commandAttributes.put("departureAirport", selectedDepartureAirport);
-        commandAttributes.put("arrivalAirport", selectedArrivalAirport);
-        commandAttributes.put("adults", selectedAdults);
-        commandAttributes.put("children", selectedChildren);
-        commandAttributes.put("departureDate", selectedDepartureDate);
-        commandAttributes.put("returnDate", selectedReturnDate);
-        boundaryCommand.setCommandAttributes(commandAttributes);
-
-        CommandServiceImpl commandService = new CommandServiceImpl();
-        commandService.createCommand("userApp", boundaryCommand, new Callback<BoundaryCommand>() {
-            @Override
-            public void onResponse(Call<BoundaryCommand> call, Response<BoundaryCommand> response) {
-                if (response.isSuccessful()) {
-                    Log.d("CommandCreated", "Command created: " + response.body());
-                } else {
-                    Log.e("CommandCreationFailed", "Create command failed: " + response.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BoundaryCommand> call, Throwable t) {
-                Log.e("CommandCreationFailed", "Create command error: " + t.getMessage());
-            }
-        });
-    }
 }

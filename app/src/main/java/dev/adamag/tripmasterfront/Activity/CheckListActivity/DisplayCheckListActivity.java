@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import dev.adamag.tripmasterfront.Activity.Adapter.CheckListAdapter;
 import dev.adamag.tripmasterfront.Activity.FlightActivity.MenuBarActivity;
