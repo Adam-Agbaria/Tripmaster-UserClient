@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
 
         BoundaryCommand command = new BoundaryCommand(null, "findObjectsByCreatorEmailAndType", targetObject, timestamp, invokedBy, commandAttributes);
         CommandServiceImpl commandService = new CommandServiceImpl();
-        commandService.createCommand("agentApp", command, new Callback<BoundaryCommand[]>() {
+        commandService.createCommand("userApp", command, new Callback<BoundaryCommand[]>() {
             @Override
             public void onResponse(Call<BoundaryCommand[]> call, Response<BoundaryCommand[]> response) {
                 if (response.isSuccessful() && response.body() != null) {

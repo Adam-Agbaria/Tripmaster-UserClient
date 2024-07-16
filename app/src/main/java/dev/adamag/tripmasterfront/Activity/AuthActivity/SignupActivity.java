@@ -67,7 +67,7 @@ public class SignupActivity extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
                 String passwordConfirm = passwordConfirmEditText.getText().toString();
-                String role = UserRole.SUPERAPP_USER.toString();
+                String role = UserRole.MINIAPP_USER.toString();
 
                 if (!password.equals(passwordConfirm)) {
                     Toast.makeText(SignupActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();

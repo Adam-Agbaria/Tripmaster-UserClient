@@ -14,12 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import dev.adamag.tripmasterfront.Activity.Adapter.CheckListAdapter;
 import dev.adamag.tripmasterfront.Activity.FlightActivity.MenuBarActivity;
 import dev.adamag.tripmasterfront.R;
+import dev.adamag.tripmasterfront.model.BoundaryCommand;
 import dev.adamag.tripmasterfront.model.BoundaryObject;
 import dev.adamag.tripmasterfront.model.CheckList;
 import dev.adamag.tripmasterfront.model.CheckListItem;
@@ -70,25 +76,31 @@ public class DisplayCheckListActivity extends MenuBarActivity {
         }
 
         userIdBoundary = new Gson().fromJson(userIdBoundaryJson, User.UserIdBoundary.class);
+        BoundaryCommand.TargetObject.ObjectId objectId = new BoundaryCommand.TargetObject.ObjectId("tripMaster", "4893f3dd-ceec-4d9e-992a-fae8f08137eb");
+        BoundaryCommand.TargetObject targetObject = new BoundaryCommand.TargetObject(objectId);
 
-        ObjectService objectService = RetrofitClient.getTripMasterClient().create(ObjectService.class);
+        BoundaryCommand.InvokedBy.UserId userId = new BoundaryCommand.InvokedBy.UserId("tripMaster", userIdBoundary.getEmail());
+        BoundaryCommand.InvokedBy invokedBy = new BoundaryCommand.InvokedBy(userId);
 
-        Call<List<BoundaryObject>> call = objectService.searchObjectsByType(
-                "CheckList",
-                userIdBoundary.getSuperapp(),
-                userIdBoundary.getEmail(),
-                100,
-                0
-        );
+        Map<String, Object> commandAttributes = new HashMap<>();
+        commandAttributes.put("email", userIdBoundary.getEmail());
+        commandAttributes.put("type", "CheckList");
+        commandAttributes.put("page", 0);
+        commandAttributes.put("size", 1);
 
-        call.enqueue(new Callback<List<BoundaryObject>>() {
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault()).format(new Date());
+
+        BoundaryCommand command = new BoundaryCommand(null, "findObjectsByCreatorEmailAndType", targetObject, timestamp, invokedBy, commandAttributes);
+        CommandServiceImpl commandService = new CommandServiceImpl();
+
+        commandService.createCommand("userApp", command, new Callback<BoundaryCommand[]>() {
             @Override
-            public void onResponse(Call<List<BoundaryObject>> call, Response<List<BoundaryObject>> response) {
+            public void onResponse(Call<BoundaryCommand[]> call, Response<BoundaryCommand[]> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<BoundaryObject> checkLists = response.body();
-
-                    if (!checkLists.isEmpty()) {
-                        BoundaryObject checkListObj = checkLists.get(0);
+                    BoundaryCommand[] results = response.body();
+                    List<Map<String, Object>> resultList = (List<Map<String, Object>>) results[0].getCommandAttributes().get("results");
+                    if (resultList != null && !resultList.isEmpty()) {
+                        BoundaryObject checkListObj = new Gson().fromJson(new Gson().toJson(resultList.get(0)), BoundaryObject.class);
                         checklistId = checkListObj.getObjectId().getId(); // Store checklist ID
                         CheckList checkList = CheckList.fromJson(checkListObj.getObjectDetails());
                         checkListItems.addAll(checkList.getItems());
@@ -100,7 +112,7 @@ public class DisplayCheckListActivity extends MenuBarActivity {
             }
 
             @Override
-            public void onFailure(Call<List<BoundaryObject>> call, Throwable t) {
+            public void onFailure(Call<BoundaryCommand[]> call, Throwable t) {
                 Toast.makeText(DisplayCheckListActivity.this, "Network error", Toast.LENGTH_SHORT).show();
             }
         });
@@ -137,8 +149,6 @@ public class DisplayCheckListActivity extends MenuBarActivity {
         // Ensure the createdBy field is set correctly
         boundaryObject.getCreatedBy().getUserId().setEmail(userIdBoundary.getEmail());
         boundaryObject.getCreatedBy().getUserId().setSuperapp(userIdBoundary.getSuperapp());
-
-        ObjectServiceImpl serviceUtil = new ObjectServiceImpl();
 
         if (checklistId == null) {
             // Send command to check if checklist exists
