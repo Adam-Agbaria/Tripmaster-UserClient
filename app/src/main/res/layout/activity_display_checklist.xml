@@ -39,7 +39,7 @@
                     android:id="@+id/profileName_LBL"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hello Adam"
+                    android:text="Hello User"
                     android:textColor="@color/white"
                     android:textSize="18dp"/>
 
